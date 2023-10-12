@@ -7,28 +7,36 @@
 <div class = "background-theme">
     <div class = "container" >
         <div>
-            <div fxLayout="row" fxLayout.xs="column" fxLayout.sm="row" fxLayoutAlign.xs="center center" fxLayoutGap="100px" class="mb-20">
-                <div fxLayout="column"  fxFlex = "20">
+            <div  class="mb-30" fxLayout="row"  fxLayoutGap="30px">
+                <div fxLayout="column"  fxFlex = "30" fxFlex.sm = "40" fxFlex.xs = "50">
                   <p> Employee Name:</p>
-                  <input type="text" id="empName" name="empName"><br><br>
+                  <input type="text" id="empName" name="empName">
                 </div>
-          
-                <div fxLayout="column" fxFlex="80">
+                <div fxLayout="column" fxFlex = "70" fxFlex.sm ="50">
                     <p> Job Title:</p>
-                    <input type="text" id="jobTitle" name="jobTitle"><br><br>
+                    <input type="text" id="jobTitle" name="jobTitle">
                 </div>
             </div>
+            <div class="mb-20">
                 <p>Write a brief description of yourself. Include any information that will help others get to know you better, like your hobbies, pets, locations, etc.</p>
-                <input type="text" id="jobTitle" name="jobTitle"><br><br>
-            <div>
-
+                <textarea type="text"> </textarea>
             </div>
-
-            <div fxLayout="row" fxLayout.xs="column" fxLayout.sm="row" fxLayoutAlign.xs="center center" fxLayoutGap="100px" class="mb-20">
+            <div class="mb-20">
+                <ng-multiselect-dropdown 
+                    
+                    [placeholder]="'Tech/Software goes here'"
+                    [settings]="dropdownSettings"
+                    [data]="dropdownList"
+                    [(ngModel)]="selectedItems"
+                    (onSelect)="onItemSelect($event)"
+                    
+                >
+                </ng-multiselect-dropdown>
+            </div>
+            <div fxLayout="row" fxLayout.xs="column" fxLayout.sm="row" fxLayoutAlign.xs="center center" fxLayoutGap="50px" class="mb-20">
                <input type = "file" id = "photo1" name = "photo1" accept="image/png, image/jpg">
                <input type = "file" id = "photo2" name = "photo2" accept="image/png, image/jpg">
                <input type = "file" id = "photo3" name = "photo3" accept="image/png, image/jpg">
-                
             </div>
 
 

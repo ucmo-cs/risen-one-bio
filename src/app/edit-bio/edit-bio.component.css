@@ -6,16 +6,21 @@
 
 .container{
     border-radius: 40px;
-    padding: 0 40px 0 40px;
+    padding: 0px 40px 20px 40px;
     background-color: white;
 }
 input {
     width: 100%;
 }
 
+.mb-30{
+    margin-bottom: 30px;
+}
+
 .mb-20{
     margin-bottom: 20px;
 }
+
 
 img{
     width: 100%;
@@ -41,3 +46,15 @@ img{
     font-size: 14pt;
     font-weight: bold;
   }
+  input[type=text] {
+    border: none;
+    border-bottom: 1px solid;
+  }
+  
+  textArea{
+    resize: none;
+    height: 100px;
+    width: 98%;
+    padding:1%;
+  }
+ 

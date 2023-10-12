@@ -1,10 +1,11 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
+import { OnInit } from '@angular/core';
+import {FormsModule} from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {MatToolbarModule} from '@angular/material/toolbar'; 
-
+import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
 import { RouterModule, Routes } from '@angular/router';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
@@ -29,13 +30,15 @@ const routes:Routes = [
   ],
   imports: [
     BrowserModule,
+    FormsModule,
     AppRoutingModule,
     MatIconModule,
     MatButtonModule,
     MatMenuModule,
+    NgMultiSelectDropDownModule,
     FlexLayoutModule,
     MatToolbarModule,
-    RouterModule.forRoot(routes)
+    RouterModule.forRoot(routes),
   ],
   exports:[RouterModule],
   providers: [],
