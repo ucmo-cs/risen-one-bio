@@ -6,11 +6,19 @@
 
 .container{
     border-radius: 40px;
-    padding: 0px 40px 20px 40px;
+    padding: 10px 50px 50px 50px;
     background-color: white;
 }
-input {
-    width: 100%;
+
+.bio-border{
+  border: solid;
+  border-width: thin;
+  padding: 20px 40px 20px 40px;
+    
+}
+
+.mb-40{
+  margin-bottom: 40px;
 }
 
 .mb-30{
@@ -20,25 +28,27 @@ input {
 .mb-20{
     margin-bottom: 20px;
 }
+.mb-10{
+    margin-bottom: 10px;
+}
+.mb-5{
+    margin-bottom: 5px;
+}
 
 
 img{
-    width: 100%;
-    height: 100%;
+    width: 10%;
     object-fit: contain;
 }
 
 .navbar {
-    background-color: darkslategray;
+    background-color: black;
     padding: 30px 50px;
-    display: flex;
     align-items: center;
     font-family: sans-serif;
   }
    
-  .link:first-of-type {
-    margin-right: 32px;
-  }
+
    
   .link {
     color: white;
@@ -46,10 +56,13 @@ img{
     font-size: 14pt;
     font-weight: bold;
   }
-  input[type=text] {
+  .underlineTextBox {
     border: none;
     border-bottom: 1px solid;
+    overflow: auto;
   }
+
+
   
   textArea{
     resize: none;
@@ -57,4 +70,72 @@ img{
     width: 98%;
     padding:1%;
   }
- 
+  .file-chosen{
+    border: solid;
+    border-width: thin;
+    border-color: #33658a;
+    padding: 9px 0px;
+    white-space: nowrap;
+  }
+
+  label {
+    background-color: #33658a;
+    color: white;
+    font-family: sans-serif;
+    cursor: pointer;
+    padding: 10px 25px;
+  }
+  #file-chosen{
+    font-family: sans-serif;
+  }
+  .removeItem{
+    border: hidden;
+    background-color: transparent;
+    color:white;
+    margin: -10 0 0 0;
+    
+  }
+
+  .hght-20{
+    max-height: 20px;
+  }
+  .hght-40{
+    height: 40px;
+    max-height: 40px;
+  }
+  .printStack{
+    display: inline-flex;
+    padding: 1px 20px 1px 5px;
+    color: white;
+    background-color: black;
+    border-radius: 50px;
+    overflow: hidden;
+    white-space: nowrap;
+  }
+  .cancel-button{
+    border-color: #facf33a0;
+    background-color: white;
+    color: #fad033;
+    text-align: center;
+    padding: 8px 30px;
+    border-radius: 30px;
+  }
+  .cancel-button:hover {
+    background-color: #fad033;
+    color: white;
+  }
+  .save-button{
+    border-color: #fad033;
+    background-color: #fad033;
+    text-align: center;
+    color: white;
+    padding: 8px 30px;
+    border-radius: 30px;
+  }
+  .save-button:hover {
+    background-color: #facf33a0;
+    color: white;
+  }
+  .autoWidth{
+    display: inline-block;
+  }

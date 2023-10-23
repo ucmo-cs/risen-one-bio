@@ -1,44 +1,123 @@
-<div class="navbar">
-    <a class="link" href="">Home</a>
+<head>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+</head>
 
+<div class="navbar" fxLayout="row" fxLayoutAlign="space-around center">
+    <a class="link" href="/bio">Home</a>
+    <h3 style = "color: white">Risen One Employee Portal</h3>
     <a class="link" href="/edit-bio">edit bio</a>
 </div>
 
 <div class = "background-theme">
     <div class = "container" >
-        <div>
-            <div  class="mb-30" fxLayout="row"  fxLayoutGap="30px">
+        <div class = "mb-10" fxLayoutAlign = "center">
+            <h1> Employee Biography</h1>
+        </div>
+        <div class = "bio-border">
+            <div  class="mb-30" fxLayout="row"  fxLayoutGap="30px" >
                 <div fxLayout="column"  fxFlex = "30" fxFlex.sm = "40" fxFlex.xs = "50">
-                  <p> Employee Name:</p>
-                  <input type="text" id="empName" name="empName">
+                  <p> Employee Name</p>
+                  <input class ="underlineTextBox" type="text" id="empName" name="empName">
                 </div>
-                <div fxLayout="column" fxFlex = "70" fxFlex.sm ="50">
-                    <p> Job Title:</p>
-                    <input type="text" id="jobTitle" name="jobTitle">
+                <div fxLayout="column" fxFlex = "70" fxFlex.sm ="50" fxFlex.xs = "50">
+                    <p> Job Title</p>
+                    <input class = "underlineTextBox" type="text" id="jobTitle" name="jobTitle">
                 </div>
-            </div>
-            <div class="mb-20">
-                <p>Write a brief description of yourself. Include any information that will help others get to know you better, like your hobbies, pets, locations, etc.</p>
-                <textarea type="text"> </textarea>
-            </div>
-            <div class="mb-20">
-                <ng-multiselect-dropdown 
-                    
-                    [placeholder]="'Tech/Software goes here'"
-                    [settings]="dropdownSettings"
-                    [data]="dropdownList"
-                    [(ngModel)]="selectedItems"
-                    (onSelect)="onItemSelect($event)"
-                    
-                >
-                </ng-multiselect-dropdown>
-            </div>
-            <div fxLayout="row" fxLayout.xs="column" fxLayout.sm="row" fxLayoutAlign.xs="center center" fxLayoutGap="50px" class="mb-20">
-               <input type = "file" id = "photo1" name = "photo1" accept="image/png, image/jpg">
-               <input type = "file" id = "photo2" name = "photo2" accept="image/png, image/jpg">
-               <input type = "file" id = "photo3" name = "photo3" accept="image/png, image/jpg">
             </div>
 
+            <div class="mb-30">
+                <p class = "mb-5">Write a brief description of yourself. Include any information that will help others get to know you better, like your hobbies, pets, locations, etc.</p>
+                <textarea type="text" id = "description" name = "description"> </textarea>
+            </div>
+
+            <div class = "mb-40">
+                <div [formGroup] = "form">
+                    <div fxLayout = "row" fxLayoutGap="75px" fxLayout.xs = "column">
+                        <div class = "hght-40" fxLayout = "row" fxFlex = "40" >
+                            <input type="text" formControlName="tech" placeholder = "Tech/Software goes here">
+
+                            <button (click)="addListItem()">
+                                <i class="material-icons">done</i>
+                            </button>
+                        </div>
+
+                        <div fxLayoutGap="30px" fxLayout = "row wrapper" fxLayoutAlign = "right" fxFlex = "70" >
+                            <div class = "printStack hght-20 mb-20" *ngFor="let tech of techStackList; let i = index" >
+                                <button class ="removeItem" (click)="removeListItem()">X</button>
+                                {{ tech }}
+
+                                
+                            </div> 
+                        </div>
+
+                    </div>
+                    
+                </div>
+            </div>
+        
+            <div class = "mb-20" fxLayout="row wrap" fxLayoutAlign = "space-around start" fxLayoutAlign.sm = "space-around center">
+                <div fxLayout = "column" fxFlex = "33" fxFlex.sm = "50">
+                    <p class = "">Featured Image</p>
+                    <div class = "mb-20">
+                        <span class = "file-chosen" id="file-chosen">No file chosen</span>
+                        <input type="file" id="upload-img-btn" hidden/>
+                        <label for="upload-img-btn">Browse</label>
+                    </div>
+
+                    <div>
+                        <input class = "hght-40" type="text" id="jobTitle" name="jobTitle" placeholder = "Caption goes here">
+                    </div>
+                    <div>
+                        <img src="assets/placeholder image.png" alt="No Image Loaded">
+                    </div>
+                </div>
+
+
+                <div fxLayout = "column" fxFlex = "33" fxFlex.sm="50" >
+                    <p class = "">Image 1</p>
+                    <div class = "mb-20">
+                        <span  class = "file-chosen" id="file-chosen">No file chosen</span>
+                        <input type="file" id="upload-img-btn" hidden/>
+                        <label for="upload-img-btn">Browse</label>
+                    </div>
+
+                    <div>
+                        <input class = "hght-40" type="text" id="jobTitle" name="jobTitle" placeholder = "Caption goes here">
+                    </div>
+                    <div>
+                        <img src="assets/placeholder image.png" alt="No Image Loaded">
+                    </div>
+                </div>
+
+
+
+                <div fxLayout = "column" fxFlex = "33" fxLayoutAlign = "right">
+                    <p class = "">Image 2</p>
+                    <div class = "mb-20">
+                        <span  class = "file-chosen" id="file-chosen">No file chosen</span>
+                        <input type="file" id="upload-img-btn" hidden/>
+                        <label for="upload-img-btn">Browse</label>
+                    </div>
+
+                    <div>
+                        <input class = "hght-40" type="text" id="jobTitle" name="jobTitle" placeholder = "Caption goes here">
+                    </div>
+                    <div>
+                        <img src="assets/placeholder image.png" alt="No Image Loaded">
+                    </div>
+                </div>
+
+
+                
+
+            </div>
+            
+            
+            
+            <div fxLayout = "row" fxLayoutAlign = "end" fxLayoutGap = "30px">
+                <button class = "cancel-button"> cancel</button>
+                <button class = "save-button"> save</button>
+            </div>
 
         </div>
         

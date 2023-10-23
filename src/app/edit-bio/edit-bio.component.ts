@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { IDropdownSettings } from 'ng-multiselect-dropdown';
 import {OnInit} from '@angular/core';
+import {Form, FormControl, FormGroup, Validators} from '@angular/forms'
+
 
 @Component({
   selector: 'app-edit-bio',
@@ -8,34 +10,28 @@ import {OnInit} from '@angular/core';
   styleUrls: ['./edit-bio.component.css']
 })
 export class EditBioComponent implements OnInit {
-  dropdownList:any = [];
-  selectedItems:any = [];
-  dropdownSettings:any = {};
+  form!: FormGroup;
+
+  techStackList: string[] = [];
   ngOnInit() {
-    this.dropdownList = [
-      { item_id: 1, item_text: 'HTML' },
-      { item_id: 2, item_text: 'Java' },
-      { item_id: 3, item_text: 'JavaScript' },
-      { item_id: 4, item_text: 'Angular' },
-    ];
+    this.form = new FormGroup({
+      tech: new FormControl('', Validators.required)
+    }
 
-    this.selectedItems = [
-
-    ];
-    this.dropdownSettings = {
-      singleSelection: false,
-      idField: 'item_id',
-      textField: 'item_text',
-      unSelectAllText: 'UnSelect All',
-      itemsShowLimit: 3,
-      allowSearchFilter: false,
-      enableCheckAll: false
-    };
-    
-    // ...
+    );
   }
-  onItemSelect(item: any) {
-    console.log(item);
+
+  addListItem() {
+    const {tech} = this.form.controls;
+    this.techStackList.push(tech.value);
+    //reset the input field for next entry
+    tech.setValue('');
+  }
+  removeListItem(){
+    const {tech} = this.form.controls;
+    //delete this.techStackList[index];
+    tech.setValue('');
+
   }
 
 
