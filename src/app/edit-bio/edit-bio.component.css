@@ -71,11 +71,16 @@ img{
     padding:1%;
   }
   .file-chosen{
-    border: solid;
-    border-width: thin;
-    border-color: #33658a;
+    display: block;
+    width: 135px;
     padding: 9px 0px;
+    text-align: center;
+    background-color: transparent;
     white-space: nowrap;
+    font-family: 'Montserrat';
+    text-overflow: ellipsis;
+     overflow: hidden; 
+    z-index: 0;
   }
 
   label {
@@ -83,11 +88,11 @@ img{
     color: white;
     font-family: sans-serif;
     cursor: pointer;
-    padding: 10px 25px;
+    padding: 11px 0px;
+    min-width: 80px;
+    text-align: center;
   }
-  #file-chosen{
-    font-family: sans-serif;
-  }
+
   .removeItem{
     border: hidden;
     background-color: transparent;
@@ -95,9 +100,18 @@ img{
     margin: -10 0 0 0;
     
   }
+  .mont-reg{
+    font-family: 'Montserrat';
+  }
+
+  .mont-bold{
+    font-family: 'Montserrat';font-weight: 700; font-size: 22px;
+  }
+
+
 
   .hght-20{
-    max-height: 20px;
+    min-height: 20px;
   }
   .hght-40{
     height: 40px;
@@ -105,7 +119,7 @@ img{
   }
   .printStack{
     display: inline-flex;
-    padding: 1px 20px 1px 5px;
+    padding: 1px 20px 3% 5px;
     color: white;
     background-color: black;
     border-radius: 50px;
@@ -138,4 +152,29 @@ img{
   }
   .autoWidth{
     display: inline-block;
+  }
+  .blueBorder{
+    width: auto;
+    border: solid;
+    border-width: thin;
+    border-color: #33658a;
+  }
+
+  .icon {
+    background: url('src/assets/UploadImage.png');
+    height: 40px;
+    width: 40px;
+    display: block;
+    /* Other styles here */
+    z-index: 1;
+  }
+  .Upload-Img-With-Caption{
+    display:block;
+    width:fit-content;
+  }
+  .checkBox{
+    background-color: gray;
+  }
+  .white{
+    color: white;
   }

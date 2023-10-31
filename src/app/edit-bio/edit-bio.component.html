@@ -1,6 +1,11 @@
 <head>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+
 </head>
+
 
 <div class="navbar" fxLayout="row" fxLayoutAlign="space-around center">
     <a class="link" href="/bio">Home</a>
@@ -10,23 +15,23 @@
 
 <div class = "background-theme">
     <div class = "container" >
-        <div class = "mb-10" fxLayoutAlign = "center">
-            <h1> Employee Biography</h1>
+        <div class = "mb-10 mont-bold" fxLayoutAlign = "center">
+            <p> Employee Biography</p>
         </div>
         <div class = "bio-border">
             <div  class="mb-30" fxLayout="row"  fxLayoutGap="30px" >
                 <div fxLayout="column"  fxFlex = "30" fxFlex.sm = "40" fxFlex.xs = "50">
-                  <p> Employee Name</p>
+                  <p class = "mont-reg"> Employee Name</p>
                   <input class ="underlineTextBox" type="text" id="empName" name="empName">
                 </div>
                 <div fxLayout="column" fxFlex = "70" fxFlex.sm ="50" fxFlex.xs = "50">
-                    <p> Job Title</p>
-                    <input class = "underlineTextBox" type="text" id="jobTitle" name="jobTitle">
+                    <p class = "mont-reg"> Job Title</p>
+                    <input class = "underlineTextBox mont-reg" type="text" id="jobTitle" name="jobTitle">
                 </div>
             </div>
 
             <div class="mb-30">
-                <p class = "mb-5">Write a brief description of yourself. Include any information that will help others get to know you better, like your hobbies, pets, locations, etc.</p>
+                <p class = "mb-5 mont-reg">Write a brief description of yourself. Include any information that will help others get to know you better, like your hobbies, pets, locations, etc.</p>
                 <textarea type="text" id = "description" name = "description"> </textarea>
             </div>
 
@@ -34,16 +39,16 @@
                 <div [formGroup] = "form">
                     <div fxLayout = "row" fxLayoutGap="75px" fxLayout.xs = "column">
                         <div class = "hght-40" fxLayout = "row" fxFlex = "40" >
-                            <input type="text" formControlName="tech" placeholder = "Tech/Software goes here">
+                            <input class ="mont-reg" type="text" formControlName="tech" placeholder = "Tech/Software goes here">
 
-                            <button (click)="addListItem()">
-                                <i class="material-icons">done</i>
+                            <button class = "checkBox" (click)="addListItem()">
+                                <i class="material-icons white">done</i>
                             </button>
                         </div>
 
                         <div fxLayoutGap="30px" fxLayout = "row wrapper" fxLayoutAlign = "right" fxFlex = "70" >
                             <div class = "printStack hght-20 mb-20" *ngFor="let tech of techStackList; let i = index" >
-                                <button class ="removeItem" (click)="removeListItem()">X</button>
+                                <button class ="removeItem" (click)="removeListItem(i)">X</button>
                                 {{ tech }}
 
                                 
@@ -55,17 +60,21 @@
                 </div>
             </div>
         
-            <div class = "mb-20" fxLayout="row wrap" fxLayoutAlign = "space-around start" fxLayoutAlign.sm = "space-around center">
+            <div class = "mb-20" fxLayout="row wrap" fxLayoutAlign = "space-around start" fxLayoutAlign.sm = "space-around center" fxLayout.xs="column">
                 <div fxLayout = "column" fxFlex = "33" fxFlex.sm = "50">
-                    <p class = "">Featured Image</p>
-                    <div class = "mb-20">
-                        <span class = "file-chosen" id="file-chosen">No file chosen</span>
-                        <input type="file" id="upload-img-btn" hidden/>
-                        <label for="upload-img-btn">Browse</label>
+                    <p class = "mont-reg">Featured Image</p>
+                    <div class = "mb-20 " fxLayout = "row">
+                        <div class = "blueBorder" fxLayout = "row">
+                            <span class='icon'></span>
+                            <span class = "file-chosen" id="file-chosen1">No file chosen</span>
+                        </div>
+                        
+                        <input type="file" id="upload-img-btn1" (change)="onFileSelectedImage($event)"  hidden/>
+                        <label for="upload-img-btn1">Browse</label>
                     </div>
 
                     <div>
-                        <input class = "hght-40" type="text" id="jobTitle" name="jobTitle" placeholder = "Caption goes here">
+                        <input class = "hght-40 mont-reg" type="text" id="jobTitle" name="jobTitle" placeholder = "Caption goes here">
                     </div>
                     <div>
                         <img src="assets/placeholder image.png" alt="No Image Loaded">
@@ -74,15 +83,19 @@
 
 
                 <div fxLayout = "column" fxFlex = "33" fxFlex.sm="50" >
-                    <p class = "">Image 1</p>
-                    <div class = "mb-20">
-                        <span  class = "file-chosen" id="file-chosen">No file chosen</span>
-                        <input type="file" id="upload-img-btn" hidden/>
-                        <label for="upload-img-btn">Browse</label>
+                    <p class = "mont-reg">Image 1</p>
+                    <div class = "mb-20" fxLayout = "row">
+                        <div class = "blueBorder" fxLayout = "row">
+                            <span class='icon'></span>
+                            <span  class = "file-chosen" id="file-chosen2">No file chosen</span>
+                        </div>
+                        
+                        <input type="file" id="upload-img-btn2" (change)="onFileSelectedImage($event)" hidden/>
+                        <label for="upload-img-btn2">Browse</label>
                     </div>
 
                     <div>
-                        <input class = "hght-40" type="text" id="jobTitle" name="jobTitle" placeholder = "Caption goes here">
+                        <input class = "hght-40 mont-reg" type="text" id="jobTitle" name="jobTitle" placeholder = "Caption goes here">
                     </div>
                     <div>
                         <img src="assets/placeholder image.png" alt="No Image Loaded">
@@ -91,16 +104,20 @@
 
 
 
-                <div fxLayout = "column" fxFlex = "33" fxLayoutAlign = "right">
-                    <p class = "">Image 2</p>
-                    <div class = "mb-20">
-                        <span  class = "file-chosen" id="file-chosen">No file chosen</span>
-                        <input type="file" id="upload-img-btn" hidden/>
-                        <label for="upload-img-btn">Browse</label>
+                <div class = "Upload-Img-With-Caption" fxLayout = "column" fxFlex = "33" fxLayoutAlign = "right">
+                    <p class = "mont-reg ">Image 2</p>
+                    <div class = "mb-20" fxLayout = "row">
+                        <div class = "blueBorder" fxLayout = "row" fxLayoutGap = "10px">
+                            <span class='icon'></span>
+                            <span class = "file-chosen" id="file-chosen3">No file chosen</span>
+                        </div>
+                        
+                        <input type="file" id="upload-img-btn3" (change)="onFileSelectedImage($event)" hidden/>
+                        <label for="upload-img-btn3">Browse</label>
                     </div>
 
                     <div>
-                        <input class = "hght-40" type="text" id="jobTitle" name="jobTitle" placeholder = "Caption goes here">
+                        <input class = "hght-40 mont-reg" type="text" id="jobTitle" name="jobTitle" placeholder = "Caption goes here">
                     </div>
                     <div>
                         <img src="assets/placeholder image.png" alt="No Image Loaded">
