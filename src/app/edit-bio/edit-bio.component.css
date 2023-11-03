@@ -37,7 +37,7 @@
 
 
 img{
-    width: 10%;
+    width: 80%;
     object-fit: contain;
 }
 
@@ -71,8 +71,10 @@ img{
     padding:1%;
   }
   .file-chosen{
-    display: block;
-    width: 135px;
+    display: inline;
+    /* width: 135px;  */
+    /* min-width: 75px; */
+    width: fit-content;
     padding: 9px 0px;
     text-align: center;
     background-color: transparent;
@@ -177,4 +179,8 @@ img{
   }
   .white{
     color: white;
+  }
+  .uploadIcon{
+    width: 40px;
+    
   }
