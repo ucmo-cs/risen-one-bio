@@ -1,0 +1,40 @@
+.background-theme{
+    background-color: #fad033;
+    padding: 60px;
+    height: 100%;
+}
+
+.container{
+    border-radius: 40px;
+    padding: 0 40px 0 40px;
+    background-color: white;
+}
+
+.mb-20{
+    margin-bottom: 20px;
+}
+
+img{
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.navbar {
+    background-color: darkslategray;
+    padding: 30px 50px;
+    display: flex;
+    align-items: center;
+    font-family: sans-serif;
+  }
+   
+  .link:first-of-type {
+    margin-right: 32px;
+  }
+   
+  .link {
+    color: white;
+    text-decoration: none;
+    font-size: 14pt;
+    font-weight: bold;
+  }
