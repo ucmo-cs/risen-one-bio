@@ -8,6 +8,7 @@ custom:
 
 provider:
   httpApi:
+    name: ${self:service}-${sls:stage}
     cors: true
   name: aws
   runtime: nodejs18.x
@@ -28,8 +29,8 @@ functions:
     handler: createBio.createBio
     events:
       - httpApi:
-        path: /createbio
-        method: post
+          method: POST
+          path: /createbio
     environment:
       BIO_TABLE: ${self:custom.bioTableName}
     role: dynamoRole
@@ -38,8 +39,8 @@ functions:
     handler: getBio.getBio
     events:
       - httpApi:
-        path: /bio/{name}
-        method: get
+          method: GET
+          path: /bio
     environment:
       BIO_TABLE: ${self:custom.bioTableName}
   
@@ -47,8 +48,8 @@ functions:
     handler: editBio.editBio
     events:
       - httpApi:
-        path: /editbio
-        method: patch
+          method: POST
+          path: /editbio
     environment:
       BIO_TABLE: ${self:custom.bioTableName}
     role: dynamoRole
