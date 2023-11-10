@@ -5,7 +5,7 @@ const dynamoDb = new AWS.DynamoDB.DocumentClient();
 
 const bioTable = process.env.BIO_TABLE;
 
-exports.getBio = async (event, context, callback) => {
+exports.getBio = async (event, context) => {
     let headers = {
         'Access-Control-Allow-Origin': '*',
         'Access-Control-Allow-Credentials': true
@@ -14,10 +14,10 @@ exports.getBio = async (event, context, callback) => {
 
     console.log("EVENT:::", JSON.stringify(event));
 
-    const tableName = event.pathParameters.model
+    const modelName = event.pathParameters.model; // Fix variable name
     const id = event.pathParameters.id;
     let table;
-    switch (tableName) { 
+    switch (modelName) { // Fix variable name
         case "bio":
             table = bioTable;
             break;
@@ -30,21 +30,26 @@ exports.getBio = async (event, context, callback) => {
         Key: {
             'id': id,
         }
-    }
+    };
 
     console.log("Getting Items from table:::", table);
 
-    await dynamoDb.get(params, (error, data) => {
-        if (error) {
-            console.log('Scan failed. Error JSON:', JSON.stringify(error, null, 2));
-            callback(error);
-            return;
-        }
+    try {
+        const data = await dynamoDb.get(params).promise(); // Use async/await for better readability
+
         const response = {
             statusCode,
             headers,
             body: JSON.stringify(data.Item)
-        }
-        callback(null, response);
-    }).promise();
+        };
+
+        return response;
+    } catch (error) {
+        console.log('Get failed. Error JSON:', JSON.stringify(error, null, 2));
+        return {
+            statusCode: error.statusCode || 500,
+            headers,
+            body: JSON.stringify({ error: error.message }),
+        };
+    }
 };
