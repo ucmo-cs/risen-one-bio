@@ -14,6 +14,7 @@ exports.createBio = async (event, context, callback) => {
 
     const data = JSON.parse(event.body);
     console.log("EVENT:::", data);
+    const defaultPath = "/placeholder_image.png"
 
     //create new timestamp value
     let d = new Date();
@@ -34,6 +35,7 @@ exports.createBio = async (event, context, callback) => {
             lastName: data.lastName,
             jobTitle: data.jobTitle,
             description: data.description,
+            mainImage: defaultPath,
             createdDate: dt,
             createdTimestamp: ts
         }
