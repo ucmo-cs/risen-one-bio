@@ -48,7 +48,7 @@ functions:
     handler: editBio.editBio
     events:
       - httpApi:
-          method: POST
+          method: PUT
           path: /editbio
     environment:
       BIO_TABLE: ${self:custom.bioTableName}

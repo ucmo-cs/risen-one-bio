@@ -3,9 +3,8 @@
 const AWS = require('aws-sdk');
 const dynamoDb = new AWS.DynamoDB.DocumentClient();
 const s3 = new AWS.S3();
-const uuid = require('uuid');
 
-exports.createBio = async (event, context, callback) => {
+exports.editBio = async (event, context, callback) => {
     let headers = {
         'Access-Control-Allow-Origin': '*',
         'Access-Control-Allow-Credentials': true
@@ -14,6 +13,12 @@ exports.createBio = async (event, context, callback) => {
 
     const data = JSON.parse(event.body);
     console.log("EVENT:::", data);
+
+    const id = data.id;
+    const firstName = data.firstName;
+    const lastName = data.lastName;
+    const jobTitle = data.jobTitle;
+    const description = data.description;
 
     //create new timestamp value
     let d = new Date();
@@ -29,17 +34,17 @@ exports.createBio = async (event, context, callback) => {
     const params = {
         TableName: process.env.BIO_TABLE,
         Item: {
-            id: uuid.v1(),
-            firstName: data.firstName,
-            lastName: data.lastName,
-            jobTitle: data.jobTitle,
-            description: data.description,
-            createdDate: dt,
-            createdTimestamp: ts
+            id: id,
+            firstName: firstName,
+            lastName: lastName,
+            jobTitle: jobTitle,
+            description: description,
+            lastEditDate: dt,
+            lastEditTimestamp: ts
         }
     }
 
-    console.log("Creating Bio");
+    console.log("Updating Bio");
 
     try{
         await dynamoDb.put(params).promise()
@@ -47,14 +52,14 @@ exports.createBio = async (event, context, callback) => {
                 callback(null, {
                     statusCode,
                     headers,
-                    body: JSON.stringify({message: 'Created Bio Successfully!'})
+                    body: JSON.stringify({message: 'Updated Bio Successfully!'})
                 });
             }).catch(err => {
                 console.log(err);
                 callback(null, {
                     statusCode: 500,
                     headers,
-                    body: JSON.stringify({message: 'Unable to Create Bio'})
+                    body: JSON.stringify({message: 'Unable to Update Bio'})
                 });
             });
     } catch (err) {
