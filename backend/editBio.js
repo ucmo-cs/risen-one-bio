@@ -14,11 +14,21 @@ exports.editBio = async (event, context, callback) => {
     const data = JSON.parse(event.body);
     console.log("EVENT:::", data);
 
-    const id = data.id;
-    const firstName = data.firstName;
-    const lastName = data.lastName;
-    const jobTitle = data.jobTitle;
-    const description = data.description;
+    const getParams = {
+        TableName: process.env.BIO_TABLE,
+        Key: {
+            id: data.id
+        },
+    }
+
+    let previousData;
+
+    try {
+        const result = await dynamoDb.get(getParams).promise();
+        previousData = result.Item;
+    } catch (error) {
+        console.error('Error retrieving data from DynamoDB:', error);
+    }
 
     //create new timestamp value
     let d = new Date();
@@ -31,18 +41,22 @@ exports.editBio = async (event, context, callback) => {
     let y = d.getFullYear();
     let dt = y + '/' + MM + '/' + dd;
 
+    const newData = {
+        id: data.id,
+        firstName: data.firstName,
+        lastName: data.lastName,
+        jobTitle: data.jobTitle,
+        description: data.description,
+        lastEditDate: dt,
+        lastEditTimestamp: ts
+    };
+
+    const updatedData = { ...previousData, ...newData };
+
     const params = {
         TableName: process.env.BIO_TABLE,
-        Item: {
-            id: id,
-            firstName: firstName,
-            lastName: lastName,
-            jobTitle: jobTitle,
-            description: description,
-            lastEditDate: dt,
-            lastEditTimestamp: ts
-        }
-    }
+        Item: updatedData,
+    };
 
     console.log("Updating Bio");
 
