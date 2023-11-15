@@ -44,7 +44,8 @@ exports.editBio = async (event, context, callback) => {
     const editData = {
         id: data.id,
         lastEditDate: dt,
-        lastEditTimestamp: ts
+        lastEditTimestamp: ts,
+        techStack: data.techStack
     };
 
     
