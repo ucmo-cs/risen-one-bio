@@ -41,15 +41,34 @@ exports.editBio = async (event, context, callback) => {
     let y = d.getFullYear();
     let dt = y + '/' + MM + '/' + dd;
 
-    const newData = {
+    const editData = {
         id: data.id,
-        firstName: data.firstName,
-        lastName: data.lastName,
-        jobTitle: data.jobTitle,
-        description: data.description,
         lastEditDate: dt,
         lastEditTimestamp: ts
     };
+
+    
+    var firstName = data.firstName;
+    var lastName = data.lastName;
+    var jobTitle = data.jobTitle;
+    var description = data.description;
+    var newData = { ...editData };
+
+    if (data.firstName != "" && data.firstName != null) {
+        newData = { ...newData, firstName };
+    }
+
+    if (data.lastName != "" && data.lastName != null) {
+        newData = { ...newData, lastName };
+    }
+
+    if (data.jobTitle != "" && data.jobTitle != null) {
+        newData = { ...newData, jobTitle };
+    }
+    
+    if (data.description != "" && data.description != null) {
+        newData = { ...newData, description };
+    }
 
     const updatedData = { ...previousData, ...newData };
 
