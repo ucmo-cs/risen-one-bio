@@ -1,7 +1,7 @@
-<div class="navbar">
-    <a class="link" href="">Home</a>
-
-    <a class="link" href="/edit-bio">edit bio</a>
+<div class="navbar" fxLayout="row" fxLayoutAlign="space-around center">
+  <a class="link" href="/bio">Home</a>
+  <h3 style = "color: white">Risen One Employee Portal</h3>
+  <a class="link" href="/edit-bio">edit bio</a>
 </div>
   <div class = "background-theme">
   
@@ -9,7 +9,7 @@
       <div fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="20px" class="text-center- mb-20">
         <h1 class = "h1"> John Doe</h1>
         <h4 class = "h4"> UX Design and Front End Development Support</h4>
-        <button class="btn btn-warning" onclick="location.href='../edit-bio'">Edit My Bio</button>
+        <button *ngIf="false" class="btn btn-warning" onclick="location.href='../edit-bio'">Edit My Bio</button> 
       </div>
   
       <div fxLayout="row" fxLayout.xs="column" fxLayout.sm="row" fxLayoutAlign.xs="center center" fxLayoutGap="100px" class="mb-20">
