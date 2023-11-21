@@ -14,28 +14,23 @@ exports.getBio = async (event, context) => {
 
     console.log("EVENT:::", JSON.stringify(event));
 
-    const modelName = event.pathParameters.model; // Fix variable name
-    const id = event.pathParameters.id;
-    let table;
-    switch (modelName) { // Fix variable name
-        case "bio":
-            table = bioTable;
-            break;
-        default:
-            throw new Error(`Unsupported resource: "${modelName}"`);
-    }
-
-    const params = {
-        TableName: table,
-        Key: {
-            'id': id,
-        }
-    };
-
-    console.log("Getting Items from table:::", table);
-
     try {
-        const data = await dynamoDb.get(params).promise(); // Use async/await for better readability
+        const id = event.pathParameters.id;
+
+        if (!id) {
+            throw new Error('Missing required path parameter: id');
+        }
+
+        const params = {
+            TableName: bioTable,
+            Key: {
+                'id': id,
+            }
+        };
+
+        console.log("Getting Item from table:::", bioTable);
+
+        const data = await dynamoDb.get(params).promise();
 
         const response = {
             statusCode,
@@ -45,11 +40,12 @@ exports.getBio = async (event, context) => {
 
         return response;
     } catch (error) {
-        console.log('Get failed. Error JSON:', JSON.stringify(error, null, 2));
+        console.error('Error:', error);
+
         return {
-            statusCode: error.statusCode || 500,
+            statusCode: 500,
             headers,
-            body: JSON.stringify({ error: error.message }),
+            body: JSON.stringify({ error: 'Internal Server Error' }),
         };
     }
 };

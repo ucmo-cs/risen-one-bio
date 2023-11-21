@@ -1,4 +1,4 @@
-org: masonmini
+org: sambailey
 app: risen-one-project
 service: risen-one-project
 frameworkVersion: '3'
@@ -8,9 +8,10 @@ custom:
 
 provider:
   httpApi:
+    name: ${self:service}-${sls:stage}
     cors: true
   name: aws
-  runtime: nodejs18.x
+  runtime: nodejs16.x
   stage: ${opt:stage, 'dev'}
   region: us-east-1
   profile: default
@@ -28,27 +29,28 @@ functions:
     handler: createBio.createBio
     events:
       - httpApi:
-        path: /createbio
-        method: post
+          method: POST
+          path: /createbio
     environment:
       BIO_TABLE: ${self:custom.bioTableName}
     role: dynamoRole
-  
+
   getBio:
     handler: getBio.getBio
     events:
       - httpApi:
-        path: /bio/{name}
-        method: get
+          method: GET
+          path: /bio/{id}
     environment:
       BIO_TABLE: ${self:custom.bioTableName}
-  
+    role: dynamoRole
+
   editBio:
     handler: editBio.editBio
     events:
       - httpApi:
-        path: /editbio
-        method: patch
+          method: PUT
+          path: /editbio
     environment:
       BIO_TABLE: ${self:custom.bioTableName}
     role: dynamoRole
@@ -63,7 +65,7 @@ resources:
           Version: '2012-10-17'
           Statement:
             - Effect: Allow
-              Principal: 
+              Principal:
                 Service:
                   - lambda.amazonaws.com
               Action: sts:AssumeRole
