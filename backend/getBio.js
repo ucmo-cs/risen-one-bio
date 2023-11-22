@@ -5,7 +5,7 @@ const dynamoDb = new AWS.DynamoDB.DocumentClient();
 
 const bioTable = process.env.BIO_TABLE;
 
-exports.getBio = async (event, context, callback) => {
+exports.getBio = async (event, context) => {
     let headers = {
         'Access-Control-Allow-Origin': '*',
         'Access-Control-Allow-Credentials': true
@@ -14,37 +14,38 @@ exports.getBio = async (event, context, callback) => {
 
     console.log("EVENT:::", JSON.stringify(event));
 
-    const tableName = event.pathParameters.model
-    const id = event.pathParameters.id;
-    let table;
-    switch (tableName) { 
-        case "bio":
-            table = bioTable;
-            break;
-        default:
-            throw new Error(`Unsupported resource: "${modelName}"`);
-    }
+    try {
+        const id = event.pathParameters.id;
 
-    const params = {
-        TableName: table,
-        Key: {
-            'id': id,
+        if (!id) {
+            throw new Error('Missing required path parameter: id');
         }
-    }
 
-    console.log("Getting Items from table:::", table);
+        const params = {
+            TableName: bioTable,
+            Key: {
+                'id': id,
+            }
+        };
 
-    await dynamoDb.get(params, (error, data) => {
-        if (error) {
-            console.log('Scan failed. Error JSON:', JSON.stringify(error, null, 2));
-            callback(error);
-            return;
-        }
+        console.log("Getting Item from table:::", bioTable);
+
+        const data = await dynamoDb.get(params).promise();
+
         const response = {
             statusCode,
             headers,
             body: JSON.stringify(data.Item)
-        }
-        callback(null, response);
-    }).promise();
+        };
+
+        return response;
+    } catch (error) {
+        console.error('Error:', error);
+
+        return {
+            statusCode: 500,
+            headers,
+            body: JSON.stringify({ error: 'Internal Server Error' }),
+        };
+    }
 };

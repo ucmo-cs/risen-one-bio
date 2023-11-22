@@ -31,8 +31,7 @@ exports.createBio = async (event, context, callback) => {
         TableName: process.env.BIO_TABLE,
         Item: {
             id: uuid.v1(),
-            firstName: data.firstName,
-            lastName: data.lastName,
+            fullName: data.fullName,
             jobTitle: data.jobTitle,
             description: data.description,
             mainImage: defaultPath,

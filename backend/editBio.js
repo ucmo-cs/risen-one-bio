@@ -4,6 +4,9 @@ const AWS = require('aws-sdk');
 const dynamoDb = new AWS.DynamoDB.DocumentClient();
 const s3 = new AWS.S3();
 
+const tableName = process.env.BIO_TABLE;
+const bucketName = process.env.BIO_IMAGES;
+
 exports.editBio = async (event, context, callback) => {
     let headers = {
         'Access-Control-Allow-Origin': '*',
@@ -14,10 +17,14 @@ exports.editBio = async (event, context, callback) => {
     const data = JSON.parse(event.body);
     console.log("EVENT:::", data);
 
+    const mainImagePath = await uploadImageToS3(data.mainImage, 'mainImage', event.pathParameters.id);
+    const optionalImagePath1 = await uploadImageToS3(data.optionalImage1, 'optionalImage1', event.pathParameters.id);
+    const optionalImagePath2 = await uploadImageToS3(data.optionalImage2, 'optionalImage2', event.pathParameters.id);
+
     const getParams = {
-        TableName: process.env.BIO_TABLE,
+        TableName: tableName,
         Key: {
-            id: data.id
+            id: event.pathParameters.id
         },
     }
 
@@ -42,25 +49,23 @@ exports.editBio = async (event, context, callback) => {
     let dt = y + '/' + MM + '/' + dd;
 
     const editData = {
-        id: data.id,
+        id: event.pathParameters.id,
         lastEditDate: dt,
         lastEditTimestamp: ts,
-        techStack: data.techStack
+        techStack: data.techStack,
+        mainImage: mainImagePath,
+        optionalImage1: optionalImagePath1,
+        optionalImage2: optionalImagePath2
     };
 
     
-    var firstName = data.firstName;
-    var lastName = data.lastName;
+    var fullName = data.fullName;
     var jobTitle = data.jobTitle;
     var description = data.description;
     var newData = { ...editData };
 
-    if (data.firstName != "" && data.firstName != null) {
-        newData = { ...newData, firstName };
-    }
-
-    if (data.lastName != "" && data.lastName != null) {
-        newData = { ...newData, lastName };
+    if (data.fullName != "" && data.fullName != null) {
+        newData = { ...newData, fullName };
     }
 
     if (data.jobTitle != "" && data.jobTitle != null) {
@@ -74,7 +79,7 @@ exports.editBio = async (event, context, callback) => {
     const updatedData = { ...previousData, ...newData };
 
     const params = {
-        TableName: process.env.BIO_TABLE,
+        TableName: tableName,
         Item: updatedData,
     };
 
@@ -100,6 +105,34 @@ exports.editBio = async (event, context, callback) => {
         return { error: err }
     }
 };
+
+async function uploadImageToS3(imageData, imageName, userId) {
+    if (!imageData) {
+        const placeholderImageKey = 'placeholder.png';
+        const placeholderParams = {
+            Bucket: bucketName,
+            Key: placeholderImageKey,
+        };
+
+        await s3.headObject(placeholderParams).promise();
+
+        return `https://${bucketName}.s3.amazonaws.com/${placeholderImageKey}`;
+    }
+
+    const decodedImage = Buffer.from(imageData, 'base64');
+    const contentType = 'image/jpg';
+    const s3Key = `${userId}/${imageName}.jpg`;
+
+    const params = {
+        Bucket: bucketName,
+        Key: s3Key,
+        Body: decodedImage,
+        ContentType: contentType,
+    };
+
+    const uploadResult = await s3.upload(params).promise();
+    return uploadResult.Location;
+}
 
 
 function addZero(i) {
