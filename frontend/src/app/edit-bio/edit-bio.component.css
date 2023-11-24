@@ -1,186 +1,207 @@
-.background-theme{
-    background-color: #fad033;
-    padding: 60px;
-    height: 100%;
+.risenOneLogo {
+width: 150px;
+}
+.background-theme {
+  background-color: #fad033;
+  padding: 60px;
+  height: 100%;
 }
 
-.container{
-    border-radius: 40px;
-    padding: 10px 50px 50px 50px;
-    background-color: white;
+.container {
+  border-radius: 40px;
+  padding: 10px 50px 50px 50px;
+  background-color: white;
 }
 
-.bio-border{
+.bio-border {
   border: solid;
   border-width: thin;
   padding: 20px 40px 20px 40px;
-    
 }
 
-.mb-40{
+.w-100 {
+  width: 100%;
+}
+
+.mb-40 {
   margin-bottom: 40px;
 }
 
-.mb-30{
-    margin-bottom: 30px;
+.mb-30 {
+  margin-bottom: 30px;
 }
 
-.mb-20{
-    margin-bottom: 20px;
+.mb-20 {
+  margin-bottom: 20px;
 }
-.mb-10{
-    margin-bottom: 10px;
+.mb-10 {
+  margin-bottom: 10px;
 }
-.mb-5{
-    margin-bottom: 5px;
+.mb-5 {
+  margin-bottom: 5px;
 }
 
+.pr-10 {
+  padding-right: 10px;
+}
 
-img{
-    width: 80%;
-    object-fit: contain;
+img {
+  width: 80%;
+  object-fit: contain;
 }
 
 .navbar {
-    background-color: black;
-    padding: 30px 50px;
-    align-items: center;
-    font-family: sans-serif;
-  }
-   
+  background-color: black;
+  padding: 30px 50px;
+  align-items: center;
+  font-family: sans-serif;
+}
+.wdth-250{
+  max-width: 250px;
+}
+.link {
+  color: white;
+  text-decoration: none;
+  font-size: 14pt;
+  font-weight: bold;
+}
+.underlineTextBox {
+  border: none;
+  border-bottom: 1px solid;
+  overflow: auto;
+}
 
-   
-  .link {
-    color: white;
-    text-decoration: none;
-    font-size: 14pt;
-    font-weight: bold;
-  }
-  .underlineTextBox {
-    border: none;
-    border-bottom: 1px solid;
-    overflow: auto;
-  }
+textArea {
+  resize: none;
+  height: 100px;
+  width: 98%;
+  padding: 1%;
+}
+.file-chosen {
+  display: inline;
+  /* width: 135px;  */
+  /* min-width: 75px; */
+  width: fit-content;
+  padding: 9px 0px;
+  text-align: center;
+  background-color: transparent;
+  white-space: nowrap;
+  font-family: "Montserrat";
+  text-overflow: ellipsis;
+  overflow: hidden;
+  z-index: 0;
+}
 
+label {
+  background-color: #33658a;
+  color: white;
+  font-family: sans-serif;
+  cursor: pointer;
+  padding: 17px 0px;
+  min-width: 110px;
+  min-height: 100%;
+  text-align: center;
+}
 
-  
-  textArea{
-    resize: none;
-    height: 100px;
-    width: 98%;
-    padding:1%;
-  }
-  .file-chosen{
-    display: inline;
-    /* width: 135px;  */
-    /* min-width: 75px; */
-    width: fit-content;
-    padding: 9px 0px;
-    text-align: center;
-    background-color: transparent;
-    white-space: nowrap;
-    font-family: 'Montserrat';
-    text-overflow: ellipsis;
-     overflow: hidden; 
-    z-index: 0;
-  }
+.removeItem {
+  border: hidden;
+  background-color: transparent;
+  color: white;
+  margin: -10 0 0 0;
+}
+.mont-reg {
+  font-family: "Montserrat";
+}
 
-  label {
-    background-color: #33658a;
-    color: white;
-    font-family: sans-serif;
-    cursor: pointer;
-    padding: 11px 0px;
-    min-width: 80px;
-    text-align: center;
-  }
+.mont-bold {
+  font-family: "Montserrat";
+  font-weight: 700;
+  font-size: 22px;
+}
 
-  .removeItem{
-    border: hidden;
-    background-color: transparent;
-    color:white;
-    margin: -10 0 0 0;
-    
-  }
-  .mont-reg{
-    font-family: 'Montserrat';
-  }
+.hght-20 {
+  min-height: 20px;
+}
+.hght-40 {
+  height: 40px;
+  max-height: 40px;
+}
+.printStack {
+  display: inline-flex;
+  padding: 2px 12px 2px 3px;
+  color: white;
+  background-color: black;
+  border-radius: 50px;
+  white-space: nowrap;
+}
+.cancel-button {
+  border-color: #facf33a0;
+  background-color: white;
+  color: #fad033;
+  text-align: center;
+  padding: 8px 30px;
+  border-radius: 30px;
+}
+.cancel-button:hover {
+  background-color: #fad033;
+  color: white;
+}
+.save-button {
+  border-color: #fad033;
+  background-color: #fad033;
+  text-align: center;
+  color: white;
+  padding: 8px 30px;
+  border-radius: 30px;
+}
+.save-button:hover {
+  background-color: #facf33a0;
+  color: white;
+}
+.autoWidth {
+  display: inline-block;
+}
+.blueBorder {
+  border: solid;
+  border-width: thin;
+  border-color: #33658a;
+}
 
-  .mont-bold{
-    font-family: 'Montserrat';font-weight: 700; font-size: 22px;
-  }
+.icon {
+  background: url("src/assets/UploadImage.png");
+  height: 40px;
+  width: 40px;
+  display: block;
+  /* Other styles here */
+  z-index: 1;
+}
+.Upload-Img-With-Caption {
+  display: block;
+  width: fit-content;
+}
+.checkBox {
+  background-color: gray;
+}
+.white {
+  color: white;
+}
+.uploadIcon {
+  width: 40px;
+}
 
+.uploaded-img {
+  max-width: 10vw;
+}
 
-
-  .hght-20{
-    min-height: 20px;
-  }
-  .hght-40{
-    height: 40px;
-    max-height: 40px;
-  }
-  .printStack{
-    display: inline-flex;
-    padding: 1px 20px 3% 5px;
-    color: white;
-    background-color: black;
-    border-radius: 50px;
-    overflow: hidden;
-    white-space: nowrap;
-  }
-  .cancel-button{
-    border-color: #facf33a0;
-    background-color: white;
-    color: #fad033;
-    text-align: center;
-    padding: 8px 30px;
-    border-radius: 30px;
-  }
-  .cancel-button:hover {
-    background-color: #fad033;
-    color: white;
-  }
-  .save-button{
-    border-color: #fad033;
-    background-color: #fad033;
-    text-align: center;
-    color: white;
-    padding: 8px 30px;
-    border-radius: 30px;
-  }
-  .save-button:hover {
-    background-color: #facf33a0;
-    color: white;
-  }
-  .autoWidth{
-    display: inline-block;
-  }
-  .blueBorder{
-    width: auto;
-    border: solid;
-    border-width: thin;
-    border-color: #33658a;
-  }
-
-  .icon {
-    background: url('src/assets/UploadImage.png');
-    height: 40px;
-    width: 40px;
-    display: block;
-    /* Other styles here */
-    z-index: 1;
-  }
-  .Upload-Img-With-Caption{
-    display:block;
-    width:fit-content;
-  }
-  .checkBox{
-    background-color: gray;
-  }
-  .white{
-    color: white;
-  }
-  .uploadIcon{
-    width: 40px;
-    
-  }
+.center-self {
+  justify-self: start;
+}
+.fileText{
+  white-space: nowrap;
+  font-family: "Montserrat";
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.tech-input{
+  width: 50px;
+}

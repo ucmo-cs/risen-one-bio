@@ -1,25 +1,34 @@
-<div class="navbar">
-    <a class="link" href="">Home</a>
+<head>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+</head>
 
-    <a class="link" href="/edit-bio">edit bio</a>
+<div class="navbar" fxLayout="row" fxLayoutAlign="space-around center">
+  <a class="link" href="/bio">Home</a>
+  <h3 style = "color: white">Risen One Employee Portal</h3>
+  <a class="link" href="/edit-bio">edit bio</a>
 </div>
   <div class = "background-theme">
   
     <div class="container">
       <div fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="20px" class="text-center- mb-20">
-        <h1 class = "h1"> John Doe</h1>
-        <h4 class = "h4"> UX Design and Front End Development Support</h4>
-        <button class="btn btn-warning" onclick="location.href='../edit-bio'">Edit My Bio</button>
+        <h1 class = "h1 mont-bold"> John Doe</h1>
+        <h4 class = "h4 mont-reg"> UX Design and Front End Development Support</h4>
+        <!-- replace the value in true with the typescript value, if its true it will show, if its false it wont show -->
+        <button *ngIf="true" class="btn btn-warning" onclick="location.href='../edit-bio'">Edit My Bio</button> 
       </div>
   
       <div fxLayout="row" fxLayout.xs="column" fxLayout.sm="row" fxLayoutAlign.xs="center center" fxLayoutGap="100px" class="mb-20">
         <div fxLayout="column" fxLayoutAlign="none center" fxFlex = "20">
           <img src="assets/placeholder image.png" alt="No Image Loaded">
-          <p> Caption about the featured image</p>
+          <p class = "mont-reg"> Caption about the featured image</p>
         </div>
   
         <div fxFlex="80">
-          <p>
+          <p class = "mont-reg">
             this is text that will be pulled from the database
           </p>
         </div>
@@ -27,23 +36,23 @@
   
       <div fxLayout="row" fxLayout.xs="column"  fxLayoutAlign.xs="center center" fxLayoutGap="100px" class="mb-20">
         <div fxLayout="column" fxLayoutGap="10px" fxFlex="20" fxLayoutAlign.xs="center center">
-          <h4> Tech Stack and Software</h4>
-          <h6>Figma</h6>
-          <h6>Angular/Typescript</h6>
-          <h6>HTML</h6>
-          <h6>CSS</h6>
-          <h6>Github</h6>
-          <h6>ZenHub</h6>
+          <h4 class = "mont-reg"> Tech Stack and Software</h4>
+          <h6 class = "mont-reg">Figma</h6>
+          <h6 class = "mont-reg">Angular/Typescript</h6>
+          <h6 class = "mont-reg">HTML</h6>
+          <h6 class = "mont-reg">CSS</h6>
+          <h6 class = "mont-reg">Github</h6>
+          <h6 class = "mont-reg">ZenHub</h6>
         </div>
   
         <div fxLayout="row" fxLayout.xs="column" fxLayout.sm="row" fxFlex="80" fxLayoutAlign="space-around" fxLayoutGap = "35px" >
           <div fxLayout="column" fxLayoutAlign="none center">
             <img src="assets/placeholder image.png" alt="No Image Loaded">
-            <p> Caption about the featured image</p>
+            <p class = "mont-reg"> Caption about the featured image</p>
           </div>
           <div fxLayout="column" fxLayoutAlign="none center">
             <img src="assets/placeholder image.png" alt="No Image Loaded">
-            <p> Caption about the featured image</p>
+            <p class = "mont-reg"> Caption about the featured image</p>
           </div>
   
         </div>

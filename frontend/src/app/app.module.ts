@@ -1,19 +1,22 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { OnInit } from '@angular/core';
-import {FormsModule} from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import {MatToolbarModule} from '@angular/material/toolbar'; 
-import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
+
 import { RouterModule, Routes } from '@angular/router';
 import { MatIconModule } from '@angular/material/icon';
+import { MatListModule } from '@angular/material/list'
 import { MatButtonModule } from '@angular/material/button';
 import { MatMenuModule } from '@angular/material/menu';
+import { MatToolbarModule} from '@angular/material/toolbar'; 
+
 import { FlexLayoutModule } from '@angular/flex-Layout';
 import { AppComponent } from './app.component';
 import { EditBioComponent } from './edit-bio/edit-bio.component';
 import { BioComponent } from './bio/bio.component';
+import { TestEmployeeComponent } from './test-employee/test-employee.component';
 
 
 const routes:Routes = [
@@ -26,7 +29,8 @@ const routes:Routes = [
   declarations: [
     AppComponent,
     EditBioComponent,
-    BioComponent
+    BioComponent,
+    TestEmployeeComponent
   ],
   imports: [
     BrowserModule,
@@ -35,9 +39,10 @@ const routes:Routes = [
     MatIconModule,
     MatButtonModule,
     MatMenuModule,
-    NgMultiSelectDropDownModule,
+    ReactiveFormsModule,
     FlexLayoutModule,
     MatToolbarModule,
+    BrowserAnimationsModule,
     RouterModule.forRoot(routes),
   ],
   exports:[RouterModule],

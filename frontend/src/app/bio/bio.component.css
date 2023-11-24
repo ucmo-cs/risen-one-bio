@@ -21,9 +21,8 @@ img{
 }
 
 .navbar {
-    background-color: darkslategray;
+    background-color: black;
     padding: 30px 50px;
-    display: flex;
     align-items: center;
     font-family: sans-serif;
   }
@@ -37,4 +36,13 @@ img{
     text-decoration: none;
     font-size: 14pt;
     font-weight: bold;
+  }
+  .mont-reg {
+    font-family: "Montserrat";
+  }
+  
+  .mont-bold {
+    font-family: "Montserrat";
+    font-weight: 700;
+    font-size: 22px;
   }

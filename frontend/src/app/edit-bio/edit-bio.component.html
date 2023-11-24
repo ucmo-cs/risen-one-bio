@@ -3,14 +3,21 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
-
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
 </head>
 
 
 <div class="navbar" fxLayout="row" fxLayoutAlign="space-around center">
+    <img class = "risenOneLogo" src="../../assets/Risen-One_white.png" alt="">
+    
     <a class="link" href="/bio">Home</a>
     <h3 style = "color: white">Risen One Employee Portal</h3>
     <a class="link" href="/edit-bio">edit bio</a>
+    <button mat-button [matMenuTriggerFor]="menu" style = "color: white">Menu</button>
+    <mat-menu #menu="matMenu">
+      <button mat-menu-item>Home</button>
+      <button mat-menu-item>Edit Bio</button>
+    </mat-menu>
 </div>
 
 <div class = "background-theme">
@@ -37,10 +44,9 @@
 
             <div class = "mb-40">
                 <div [formGroup] = "form">
-                    <div fxLayout = "row" fxLayoutGap="75px" fxLayout.xs = "column">
-                        <div class = "hght-40" fxLayout = "row" fxFlex = "40" >
-                            <input class ="mont-reg" type="text" formControlName="tech" placeholder = "Tech/Software goes here">
-
+                    <div fxLayout = "row" fxLayout.xs = "column" fxLayoutGap = "10%">
+                        <div class = "hght-40 " fxLayout = "row" >
+                            <input class ="mont-reg" size="22" type="text" formControlName="tech" placeholder = "Tech/Software goes here">
                             <button class = "checkBox" (click)="addListItem()">
                                 <i class="material-icons white">done</i>
                             </button>
@@ -60,86 +66,74 @@
                 </div>
             </div>
         
-            <div class = "mb-20" fxLayout="row wrap" fxLayoutAlign = "space-around start"  fxLayout.xs="column">
-                <div style="outline: solid;" fxLayout = "column" fxFlex = "33" fxFlex.sm = "40">
-                    <p class = "mont-reg">Featured Image</p>
-                    <div class = "mb-20 " fxLayout = "row">
-                        <div class = "blueBorder" fxLayout = "row">
-                            <div fxLayout = "center" class = "uploadIcon">
-                                <img class ="uploadIcon" src="assets/UploadImage.png">
-                            </div>
-                            <div class = "file-chosen">
-                                <p id="file-chosen1">No file chosen</p>
-                            </div>
-                            
+            <div class = "mb-20" fxLayout="row wrap" fxLayoutAlign = "space-between start" fxLayoutAlign.md="space-between start"  fxLayout.xs="column">
+
+                <div fxLayout="column" fxLayoutGap="20px" class="center-self">
+                    <div class="blueBorder" fxLayout="row" fxLayoutAlign="space-between center">
+                        <div fxLayout="row" class = "wdth-250">
+                            <img *ngIf="isUploaded1"  class ="uploadIcon" src="../../assets/DeleteImage.png">
+                            <img *ngIf="!isUploaded1" id = "iconImage" class ="uploadIcon" src="../../assets/UploadImage.png">
+                            <p id="file-chosen1" class="pr-10 fileText">Browse</p>
                         </div>
-                        
-                        <input type="file" id="upload-img-btn1" (change)="onFileSelectedImage($event)"  hidden/>
+                        <input type="file" accept="image/png, image/jpeg" id="upload-img-btn1" (change)="onFileSelectedImage($event)"  hidden/>
                         <label for="upload-img-btn1">Browse</label>
                     </div>
 
                     <div>
-                        <input class = "hght-40 mb-20 mont-reg" type="text" id="jobTitle" name="jobTitle" placeholder = "Caption goes here">
+                        <p class = "mont-reg">(Optional) insert a caption for Featured Image.</p>
+                        <input class = "hght-40 mont-reg w-100" type="text" id="jobTitle" name="jobTitle" placeholder = "Caption goes here">
                     </div>
-                    <div>
-                        <img src="assets/placeholder image.png" alt="No Image Loaded">
+
+
+                    <div class="uploaded-img">
+                         <img src="assets/placeholder image.png" alt="No Image Loaded">
                     </div>
                 </div>
 
 
-                <div fxLayout = "column" fxFlex = "33" fxFlex.sm="40" >
-                    <p class = "mont-reg">Image 1</p>
-                    <div class = "mb-20" fxLayout = "row">
-                        <div class = "blueBorder" fxLayout = "row">
-                            <div fxLayout = "center" class = "uploadIcon">
-                                <img src="assets/UploadImage.png">
-                            </div>
-                            <div class = "file-chosen">
-                                <p id="file-chosen2">No file chosen</p>
-                            </div>
+                <div fxLayout="column" fxLayoutGap="20px">
+                    <div class="blueBorder" fxLayout="row" fxLayoutAlign="space-between center" >
+                        <div fxLayout="row">
+                            <img *ngIf="isUploaded2"  class ="uploadIcon" src="../../assets/DeleteImage.png">
+                            <img *ngIf="!isUploaded2" id = "iconImage" class ="uploadIcon" src="../../assets/UploadImage.png">
+                            <p id="file-chosen2" class="pr-10 fileText">Browse</p>
                         </div>
-                        
-                        <input type="file" id="upload-img-btn2" (change)="onFileSelectedImage($event)" hidden/>
+                        <input type="file" id="upload-img-btn2" accept="image/png, image/jpeg" (change)="onFileSelectedImage($event)"  hidden/>
                         <label for="upload-img-btn2">Browse</label>
                     </div>
 
                     <div>
-                        <input class = "hght-40 mb-20 mont-reg" type="text" id="jobTitle" name="jobTitle" placeholder = "Caption goes here">
+                        <p class = "mont-reg">(Optional) insert a caption for Featured Image.</p>
+                        <input class = "hght-40 mont-reg w-100" type="text" id="jobTitle" name="jobTitle" placeholder = "Caption goes here">
                     </div>
-                    <div>
-                        <img src="assets/placeholder image.png" alt="No Image Loaded">
+
+
+                    <div class="uploaded-img">
+                         <img src="assets/placeholder image.png" alt="No Image Loaded">
                     </div>
                 </div>
 
-
-
-                <div class = "Upload-Img-With-Caption" fxLayout = "column" fxFlex = "33" fxLayoutAlign = "right">
-                    <p class = "mont-reg ">Image 2</p>
-                    <div class = "mb-20" fxLayout = "row">
-                        <div class = "blueBorder" fxLayout = "row" fxLayoutGap = "10px">
-                            <div fxLayout = "center" class = "uploadIcon">
-                                <img src="assets/UploadImage.png">
-                            </div>
-                            <div class = "file-chosen">
-                                <p id="file-chosen3">No file chosen</p>
-                            </div>
+                <div fxLayout="column" fxLayoutGap="20px">
+                    <div class="blueBorder" fxLayout="row" fxLayoutAlign="space-between center" >
+                        <div fxLayout="row">
+                            <img *ngIf="isUploaded3"  class ="uploadIcon" src="../../assets/DeleteImage.png">
+                            <img *ngIf="!isUploaded3" id = "iconImage" class ="uploadIcon" src="../../assets/UploadImage.png">
+                            <p id="file-chosen3" class="pr-10 fileText">Browse</p>
                         </div>
-                        
-                        <input type="file" id="upload-img-btn3" (change)="onFileSelectedImage($event)" hidden/>
+                        <input type="file" id="upload-img-btn3" accept="image/png, image/jpeg" (change)="onFileSelectedImage($event)"  hidden/>
                         <label for="upload-img-btn3">Browse</label>
                     </div>
 
                     <div>
-                        <input class = "hght-40 mb-20 mont-reg" type="text" id="jobTitle" name="jobTitle" placeholder = "Caption goes here">
+                        <p class = "mont-reg">(Optional) insert a caption for Featured Image.</p>
+                        <input class = "hght-40 mont-reg w-100" type="text" id="jobTitle" name="jobTitle" placeholder = "Caption goes here">
                     </div>
-                    <div>
-                        <img src="assets/placeholder image.png" alt="No Image Loaded">
+
+
+                    <div class="uploaded-img">
+                         <img src="assets/placeholder image.png" alt="No Image Loaded">
                     </div>
                 </div>
-
-
-                
-
             </div>
             
             

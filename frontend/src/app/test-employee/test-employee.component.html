@@ -1,0 +1,53 @@
+<button mat-button [matMenuTriggerFor]="hamburgerMenu"> 
+    Web Technologies 
+</button> 
+  
+<mat-menu #hamburgerMenu="matMenu"> 
+  <button mat-menu-item>HTML</button> 
+  <button mat-menu-item>CSS</button> 
+  <button mat-menu-item>JQuery</button> 
+  <button mat-menu-item>Bootstrap</button> 
+  <button mat-menu-item>Angular</button> 
+  <button mat-menu-item>React.js</button> 
+</mat-menu> 
+<div fxLayout="row wrap" fxLayoutGap="20px"   fxLayout.xs="column" >
+
+    <div fxLayout="column"  class="center-self" *ngFor="let number of [0,1,2,3,4]">{{number}}
+        <img src="" alt="">
+        <p>First Name</p>
+        <p>Last Name</p>
+        <p>Job Title</p>
+        <p>Job Description</p>
+        <!-- modify between the parenthesis in the ngFor and the {{}} -->
+        <!-- <div *ngFor="let tech of techStackList" >
+            {{ tech }}
+        </div>  -->
+    </div>
+
+    <!-- hard coded alternative if ngFor isnt working -->
+
+    <!-- <div fxLayout="column" class="center-self">
+        <img src="" alt="">
+        <p>First Name</p>
+        <p>Last Name</p>
+        <p>Job Title</p>
+        <p>Job Description</p>
+        <div *ngFor="let tech of techStackList" >
+            {{ tech }}
+        </div>
+        
+        
+    </div>
+    <div fxLayout="column" class="center-self">
+        <img src="" alt="">
+        <p>First Name</p>
+        <p>Last Name</p>
+        <p>Job Title</p>
+        <p>Job Description</p>
+        <div *ngFor="let tech of techStackList" >
+            {{ tech }}
+        </div>
+
+    </div> -->
+</div>
+
