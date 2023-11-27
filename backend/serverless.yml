@@ -5,12 +5,14 @@ frameworkVersion: '3'
 
 custom:
   bioTableName: '${self:service}-bio-table-${sls:stage}'
+  bioImagesS3Name: '${self:service}-bio-images-${sls:stage}'
 
 provider:
   httpApi:
+    name: ${self:service}-${sls:stage}
     cors: true
   name: aws
-  runtime: nodejs18.x
+  runtime: nodejs16.x
   stage: ${opt:stage, 'dev'}
   region: us-east-1
   profile: default
@@ -28,29 +30,32 @@ functions:
     handler: createBio.createBio
     events:
       - httpApi:
-        path: /createbio
-        method: post
+          method: POST
+          path: /createbio
     environment:
       BIO_TABLE: ${self:custom.bioTableName}
+      BIO_IMAGES: ${self:custom.bioImagesS3Name}
     role: dynamoRole
   
   getBio:
     handler: getBio.getBio
     events:
       - httpApi:
-        path: /bio/{name}
-        method: get
+          method: GET
+          path: /bio/{id}
     environment:
       BIO_TABLE: ${self:custom.bioTableName}
+      BIO_IMAGES: ${self:custom.bioImagesS3Name}
   
   editBio:
     handler: editBio.editBio
     events:
       - httpApi:
-        path: /editbio
-        method: patch
+          method: PUT
+          path: /editbio/{id}
     environment:
       BIO_TABLE: ${self:custom.bioTableName}
+      BIO_IMAGES: ${self:custom.bioImagesS3Name}
     role: dynamoRole
 
 resources:
@@ -94,6 +99,12 @@ resources:
                     - dynamodb:DeleteItem
                   Resource:
                     - Fn::GetAtt: [BioTable, Arn]
+                - Effect: Allow
+                  Action:
+                    - s3:GetObject
+                    - s3:PutObject
+                  Resource:
+                    - Fn::Sub: arn:aws:s3:::${self:custom.bioImagesS3Name}/*
 
     BioTable:
       Type: AWS::DynamoDB::Table
@@ -110,7 +121,7 @@ resources:
     ImageBucket:
       Type: AWS::S3::Bucket
       Properties:
-        BucketName: bioimages
+        BucketName: ${self:custom.bioImagesS3Name}
         Tags:
           - Key: ROBio
             Value: risen-one-bio
