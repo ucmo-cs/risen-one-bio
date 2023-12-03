@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { OnInit } from '@angular/core';
-import { BioService } from 'src/app/services/bio.service';
 import { ApiService } from 'src/app/services/api.service';
 import { Router } from '@angular/router';
 
@@ -14,20 +13,16 @@ export class BioComponent implements OnInit{
   bioInfo: any;
 
   constructor(
-    private bioService: BioService,
     private apiService: ApiService,
     private router: Router
   ){}
 
+  id = '';
+
   ngOnInit(): void {
 
     this.bioInfo = this.getBio(this.id);
-
-
-    this.bioService.setBioInfo(this.bioInfo);
   }
-
-  id = '';
 
   getBio(id: string){
     this.apiService.getBio(id).subscribe({
