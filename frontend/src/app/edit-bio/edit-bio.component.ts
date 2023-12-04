@@ -1,10 +1,8 @@
 import { Component } from '@angular/core';
 import {OnInit} from '@angular/core';
-import {Form, FormControl, FormGroup, Validators, FormBuilder} from '@angular/forms';
+import {Form, FormControl, FormGroup, Validators} from '@angular/forms'
 import {MatMenuModule} from '@angular/material/menu';
 import {MatButtonModule} from '@angular/material/button';
-import { ApiService } from 'src/app/services/api.service';
-import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-edit-bio',
@@ -15,8 +13,7 @@ import { Router } from '@angular/router';
 
 
 export class EditBioComponent implements OnInit {
-  bioform: any;
-  hasLoaded = false;
+  form!: FormGroup;
 
   techStackList: string[] = [];
   isUploaded1: boolean = false;
@@ -36,29 +33,14 @@ export class EditBioComponent implements OnInit {
 //     }
 //   });
 // }
-
-  constructor(
-    private formBuilder: FormBuilder,
-    private apiService: ApiService,
-    private router: Router
-  ){}
-
   ngOnInit() {
-    this.bioform = this.formBuilder.group({
-      fullName: ['', [Validators.required]],
-      jobTitle: ['', [Validators.required]],
-      description: ['', [Validators.required]],
-      tech: ['', [Validators.required]],
-      mainImage: ['', [Validators.required]],
-      caption1: ['', [Validators.required]],
-      optionalImage1: ['', [Validators.required]],
-      caption2: ['', [Validators.required]],
-      optionalImage2: ['', [Validators.required]],
-      caption3: ['', [Validators.required]],
-    });
+    this.form = new FormGroup({
+      tech: new FormControl('', Validators.required)
+    }
+
+    );
   
-    console.log(this.bioform);
-    this.hasLoaded = true;
+
   }
  
   onFileSelectedImage(event: Event) {
@@ -91,7 +73,7 @@ export class EditBioComponent implements OnInit {
     
   }
   addListItem() {
-    const {tech} = this.bioform.controls;
+    const {tech} = this.form.controls;
     this.techStackList.push(tech.value);
     //reset the input field for next entry
     tech.setValue('');
@@ -102,40 +84,13 @@ export class EditBioComponent implements OnInit {
   removeListItem(i: number){
     console.log("remove item list");
     console.log(i);
-    const {tech} = this.bioform.controls;
+    const {tech} = this.form.controls;
     this.techStackList.splice(i, 1);
     tech.setValue('');
 
   }
 
-  submit(){
 
-    const data = {
-      fullName: this.bioform.get('fullName').value,
-      jobTitle: this.bioform.get('jobTitle').value,
-      description: this.bioform.get('description').value,
-      techStack: this.bioform.get('tech').value,
-      mainImage: this.bioform.get('mainImage').value,
-      caption1: this.bioform.get('caption1').value,
-      optionalImage1: this.bioform.get('optionalImage1').value,
-      caption2: this.bioform.get('caption2').value,
-      optionalImage2: this.bioform.get('optionalImage2').value,
-      caption3: this.bioform.get('caption3').value,
-    }
-    this.putBio(data);
-  }
-
-  putBio(bioData: any){
-    this.apiService.editBio(bioData).subscribe({
-      next: () => {
-        window.location.reload();
-        this.router.navigate(['/bio']);
-      },
-      error: () => {
-        console.log('ERROR');
-      },
-    });
-  }
 
   
 }
