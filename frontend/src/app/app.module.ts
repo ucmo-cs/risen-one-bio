@@ -17,11 +17,13 @@ import { AppComponent } from './app.component';
 import { EditBioComponent } from './edit-bio/edit-bio.component';
 import { BioComponent } from './bio/bio.component';
 import { TestEmployeeComponent } from './test-employee/test-employee.component';
+import { GetTokenComponent } from './get-token/get-token.component';
 
 
 const routes:Routes = [
   {path:'bio', component:BioComponent},
-  {path:'edit-bio', component:EditBioComponent}
+  {path:'edit-bio', component:EditBioComponent},
+  {path: 'get-token', component:GetTokenComponent}
   
 ];
 
@@ -30,6 +32,7 @@ const routes:Routes = [
     AppComponent,
     EditBioComponent,
     BioComponent,
+    GetTokenComponent,
     TestEmployeeComponent
   ],
   imports: [

@@ -15,6 +15,7 @@ exports.editBio = async (event, context, callback) => {
     let statusCode = 200;
 
     const data = JSON.parse(event.body);
+    const token = event.headers['Authorization'];
     console.log("EVENT:::", data);
 
     const mainImagePath = await uploadImageToS3(data.mainImage, 'mainImage', event.pathParameters.id);
