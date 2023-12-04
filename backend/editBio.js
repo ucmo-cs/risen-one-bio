@@ -55,10 +55,7 @@ exports.editBio = async (event, context, callback) => {
         techStack: data.techStack,
         mainImage: mainImagePath,
         optionalImage1: optionalImagePath1,
-        optionalImage2: optionalImagePath2,
-        caption1: data.caption1,
-        caption2: data.caption2,
-        caption3: data.caption3
+        optionalImage2: optionalImagePath2
     };
 
     
@@ -110,7 +107,7 @@ exports.editBio = async (event, context, callback) => {
 };
 
 async function uploadImageToS3(imageData, imageName, userId) {
-    if (!imageData ||  imageData == "") {
+    if (!imageData) {
         const placeholderImageKey = 'placeholder.png';
         const placeholderParams = {
             Bucket: bucketName,

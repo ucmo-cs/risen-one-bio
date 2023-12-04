@@ -14,8 +14,8 @@ export class ApiService {
 
   constructor(private http: HttpClient) {}
 
-  getBio(id: string) {
-    return this.http.get<any>(this.bioUrl + '/' + id);
+  getBio(params: any) {
+    return this.http.get<any>(this.bioUrl, params);
   }
 
   editBio(requestParams: any) {
