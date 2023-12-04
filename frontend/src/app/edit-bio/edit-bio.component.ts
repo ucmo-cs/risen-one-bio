@@ -1,8 +1,11 @@
 import { Component } from '@angular/core';
 import {OnInit} from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 import {Form, FormControl, FormGroup, Validators} from '@angular/forms'
+import { MatDialog } from '@angular/material/dialog';
 import {MatMenuModule} from '@angular/material/menu';
 import {MatButtonModule} from '@angular/material/button';
+import { ApiService } from 'src/app/services/api.service';
 
 @Component({
   selector: 'app-edit-bio',
@@ -14,6 +17,13 @@ import {MatButtonModule} from '@angular/material/button';
 
 export class EditBioComponent implements OnInit {
   form!: FormGroup;
+  previousData: any;
+
+  constructor(
+    private http: HttpClient,
+    private apiService: ApiService,
+    public dialog: MatDialog
+  ) {}
 
   techStackList: string[] = [];
   isUploaded1: boolean = false;
@@ -35,11 +45,26 @@ export class EditBioComponent implements OnInit {
 // }
   ngOnInit() {
     this.form = new FormGroup({
-      tech: new FormControl('', Validators.required)
-    }
+      fullName: new FormControl('', Validators.required),
+      jobTitle: new FormControl('', Validators.required),
+      description: new FormControl('', Validators.required),
+      tech: new FormControl('', Validators.required),
+      mainImage: new FormControl('', Validators.required),
+      caption1: new FormControl('', Validators.required),
+      optionalImage1: new FormControl('', Validators.required),
+      caption2: new FormControl('', Validators.required),
+      optionalImage2: new FormControl('', Validators.required),
+      caption3: new FormControl('', Validators.required)
+    });
 
-    );
-  
+    const userId = '160faac0-8289-11ee-9dcc-6507b4955383';
+
+    this.apiService.getBio(userId).subscribe((bioData) => {
+      this.previousData = bioData;
+    },
+    (error) => {
+      console.error('Error fetching bio data:', error);
+    });
 
   }
  
