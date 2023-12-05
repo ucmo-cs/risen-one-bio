@@ -15,6 +15,8 @@ exports.getBio = async (event, context) => {
     let statusCode = 200;
 
     const token = event.headers['Authorization'];
+    const decodedToken = readToken(token);
+    const sub = decodedToken.sub;
 
     console.log("EVENT:::", JSON.stringify(event));
 
@@ -66,15 +68,26 @@ exports.getBio = async (event, context) => {
             data.Item.optionalImage1 = optionalImage1;
             data.Item.optionalImage2 = optionalImage2;
         }
+      
+        if(sub == id){
+            const response = {
+                statusCode,
+                headers: {
+                    'isAccount': true
+                },
+                body: JSON.stringify(data.Item)
+            };
+        }else{
+            const response = {
+                statusCode,
+                headers,
+                body: JSON.stringify(data.Item)
+            };
+        }
 
-        const response = {
-            statusCode,
-            headers,
-            body: JSON.stringify(data.Item)
-        };
 
         return response;
-    } catch (error) {
+      } catch (error) {
         console.error('Error:', error);
 
         return {
@@ -84,3 +97,7 @@ exports.getBio = async (event, context) => {
         };
     }
 };
+
+function readToken(token){
+    return JSON.parse(Buffer.from(token.split('.')[1], 'base64').toString());
+}
