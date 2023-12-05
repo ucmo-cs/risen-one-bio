@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from '../../environments/environment';
 import { Constants } from '../shared/constants/constants';
 import { Bio } from "../models/bio";
@@ -20,8 +20,8 @@ export class ApiService {
     return this.http.get<any>(this.bioUrl + '/' + id);
   }
 
-  editBio(requestParams: any) {
-    return this.http.put<any>(this.editBioUrl, requestParams);
+  editBio(requestParams: any, id: string): Observable<any> {
+    return this.http.put<any>(this.editBioUrl + '/' + id, requestParams);
   }
 
   getToken(): Observable<any>{

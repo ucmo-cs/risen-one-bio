@@ -15,6 +15,7 @@ exports.editBio = async (event, context, callback) => {
     let statusCode = 200;
 
     const data = JSON.parse(event.body);
+    console.log("EVENT:::PreToken", data);
     const token = event.headers['Authorization'];
     console.log("EVENT:::", data);
 

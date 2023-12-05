@@ -30,6 +30,8 @@ export class EditBioComponent implements OnInit {
     public dialog: MatDialog
   ) {}
 
+  authUserId: string = '';
+
   techStackList: string[] = [];
   isUploaded1: boolean = false;
   isUploaded2: boolean = false;
@@ -59,6 +61,7 @@ export class EditBioComponent implements OnInit {
     });
 
     const userId = '160faac0-8289-11ee-9dcc-6507b4955383';
+    this.authUserId = userId;
 
     this.apiService.getBio(userId).subscribe((bioData) => {
       
@@ -161,7 +164,7 @@ export class EditBioComponent implements OnInit {
   sanitizeImage(base64Image: string): SafeUrl {
     // Use DomSanitizer to sanitize the image URL
     return this.domSanitizer.bypassSecurityTrustUrl(`data:image/jpg;base64,${base64Image}`);
-}
+  }
 
 
 //=====================================================//
@@ -228,5 +231,66 @@ export class EditBioComponent implements OnInit {
     reader.readAsDataURL(file);
   }
 
+//=====================================================//
+//                    Submit Button                    //
+//=====================================================//
+
+  save() {
+
+    console.log(this.mainImageUrl);
+
+    const mainImageBase64 = this.safeUrlToBase64(this.mainImageUrl);
+    const optionalImage1Base64 = this.safeUrlToBase64(this.optionalImage1Url);
+    const optionalImage2Base64 = this.safeUrlToBase64(this.optionalImage2Url);
+
+    const formData = { 
+      fullName: this.form.get('fullName')!.value,
+      jobTitle: this.form.get('jobTitle')!.value,
+      description: this.form.get('description')!.value,
+      techStack: JSON.stringify(this.techStackList),
+      mainImage: mainImageBase64,
+      optionalImage1: optionalImage1Base64,
+      optionalImage2: optionalImage2Base64,
+      caption1: this.form.get('caption1')!.value,
+      caption2: this.form.get('caption2')!.value,
+      caption3: this.form.get('caption3')!.value
+     };
+
+     console.log(formData.mainImage);
+     console.log(formData.optionalImage1);
+     console.log(formData.optionalImage2);
+    console.log(formData);
+
+    this.apiService.editBio(formData, this.authUserId).subscribe(
+      (response) => {
+        console.log('API response:', response);
+      },
+      (error) => {
+        console.error('API error:', error);
+      }
+    );
+
+  }
+
+  safeUrlToBase64(safeUrl: SafeUrl | null): string | null {
+    if (!safeUrl) {
+      console.log('SafeUrl is null.');
+      return null;
+    }
   
+    const url = safeUrl.toString();
+    console.log('Original URL:', url);
+  
+    if (url.startsWith('SafeValue must use [property]=binding: data:image/')) {
+      const base64Index = url.indexOf(';base64,') + ';base64,'.length;
+      const base64 = url.substring(base64Index);
+      console.log('Base64:', base64);
+      return base64;
+    }
+  
+    console.log('URL does not have the expected prefix.');
+    return null;
+  }
+
+
 }
