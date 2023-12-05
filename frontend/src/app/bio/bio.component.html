@@ -9,7 +9,7 @@
 <div class="navbar" fxLayout="row" fxLayoutAlign="space-around center">
   <a class="link" href="/bio">Home</a>
   <h3 style = "color: white">Risen One Employee Portal</h3>
-  <a class="link" href="/edit-bio">edit bio</a>
+  <a *ngif="isUser" class="link" href="/edit-bio">edit bio</a>
 </div>
   <div class = "background-theme">
   

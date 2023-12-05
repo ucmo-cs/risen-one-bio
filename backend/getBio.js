@@ -67,6 +67,7 @@ exports.getBio = async (event, context) => {
             const sub = decodedToken.sub;
       
             if(sub == id){
+                data.Item.isAccount = true;
                 const response = {
                     statusCode,
                     headers: {

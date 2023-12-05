@@ -58,6 +58,10 @@ export class BioComponent {
         this.optionalImage2Url = this.sanitizeImage(bioData.optionalImage2);
       }
 
+      if(bioData.headers.isAccount || bioData.isAccount){
+        const isUser = true;
+      }
+
       document.getElementById('fullName')!.textContent = bioData.fullName;
       document.getElementById('jobTitle')!.textContent = bioData.jobTitle;
       document.getElementById('description')!.textContent = bioData.description;
