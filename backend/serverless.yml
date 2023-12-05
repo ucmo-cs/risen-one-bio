@@ -1,4 +1,4 @@
-org: masonmini
+org: logan368
 app: risen-one-project
 service: risen-one-project
 frameworkVersion: '3'
@@ -57,6 +57,13 @@ functions:
       BIO_TABLE: ${self:custom.bioTableName}
       BIO_IMAGES: ${self:custom.bioImagesS3Name}
     role: dynamoRole
+  
+  getToken:
+    handler: getToken.getToken
+    events:
+      - httpAPI:
+          method: GET
+          path: /getToken/{id}
 
 resources:
   Resources:
@@ -125,3 +132,55 @@ resources:
         Tags:
           - Key: ROBio
             Value: risen-one-bio
+
+    Cognito:
+      Type: AWS::Cognito::UserPool
+      Properties:
+        AccountRecoverySetting:
+          RecoveryMechanisms:
+            - Name: 'verified_email'
+              Priority: 1
+        AdminCreateUserConfig:
+          AllowAdminCreateUserOnly: true
+        AliasAttributes:
+          - 'email'
+          - 'preferred_username'
+        AutoVerifiedAttributes:
+          - 'email'
+        DeletionProtection: 'ACTIVE'
+        DeviceConfiguration:
+          ChallengeRequiredOnNewDevice: true
+          DeviceOnlyRememberedOnUserPrompt: true
+        EmailConfiguration:
+          EmailSendingAccount: COGNITO_DEFAULT
+          # From: no-reply@verificationemail.com
+          ReplyToEmailAddress: 'LCS56910@ucmo.edu'
+        EnabledMfas:
+          - SMS_MFA
+        MfaConfiguration: OPTIONAL
+        Policies:
+          PasswordPolicy:
+            MinimumLength: 8
+            RequireLowercase: true
+            RequireNumbers: true
+            RequireSymbols: true
+            RequireUppercase: true
+            TemporaryPasswordValidityDays: 60
+        # SmsAuthenticationMessage: SMS authentication
+        SmsConfiguration:
+          ExternalId: 4de7af91-d43a-4f13-9fc3-e6be33bb7828
+          SnsCallerArn: arn:aws:iam::569915834522:role/service-role/CognitoBioPageSMS
+          SnsRegion: us-east-1
+        UserAttributeUpdateSettings:
+          AttributesRequireVerificationBeforeUpdate:
+            - 'email'
+        # UsernameAttributes:
+        #   - email
+        UsernameConfiguration:
+          CaseSensitive: false
+        UserPoolAddOns:
+          AdvancedSecurityMode: AUDIT
+        UserPoolName: BioPageUserPool
+        VerificationMessageTemplate:
+          DefaultEmailOption: CONFIRM_WITH_CODE
+          # SmsMessage: Here is your verification code

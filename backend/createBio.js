@@ -15,6 +15,7 @@ exports.createBio = async (event, context, callback) => {
     const data = JSON.parse(event.body);
     console.log("EVENT:::", data);
     const defaultPath = "/placeholder_image.png"
+    const token = event.headers['Authorization'];
 
     //create new timestamp value
     let d = new Date();
