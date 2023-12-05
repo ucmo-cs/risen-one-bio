@@ -36,26 +36,14 @@ export class EditBioComponent implements OnInit {
   isUploaded3: boolean = false;
   fileChosen3 = document.getElementById('file-chosen3')!;
 
-  mainImageUrl: string | null = null;
-  optionalImage1Url: string | null = null;
-  optionalImage2Url: string | null = null;
+  mainImageUrl: SafeUrl | null = null;
+  optionalImage1Url: SafeUrl | null = null;
+  optionalImage2Url: SafeUrl | null = null;
 
   mainImageFile: File | null = null;
   optionalImage1File: File | null = null;
   optionalImage2File: File | null = null;
 
-//   const input: HTMLInputElement | null = document.getElementById("myInput");
-// if (input) {
-//   input.addEventListener("keypress", function(event: KeyboardEvent) {
-//     if (event.key === "Enter") {
-//       event.preventDefault();
-//       const myBtn: HTMLElement | null = document.getElementById("myBtn");
-//       if (myBtn) {
-//         myBtn.click();
-//       }
-//     }
-//   });
-// }
   ngOnInit() {
     this.form = new FormGroup({
       fullName: new FormControl('', Validators.required),
@@ -92,18 +80,21 @@ export class EditBioComponent implements OnInit {
         caption3: bioData.caption3
       });
 
-      if (bioData.mainImage && bioData.mainImage ==! ''){
-        this.mainImageUrl = bioData.mainImage;
+      if (bioData.mainImage){
+        this.mainImageUrl = this.sanitizeImage(bioData.mainImage);
+        document.getElementById('file-chosen1')!.textContent = "Main Image";
         this.isUploaded1 = true;
       }
 
-      if (bioData.optionalImage1 && bioData.optionalImage1 ==! ''){
-        this.optionalImage1Url = bioData.optionalImage1;
+      if (bioData.optionalImage1){
+        this.optionalImage1Url = this.sanitizeImage(bioData.optionalImage1);
+        document.getElementById('file-chosen2')!.textContent = "Optional Image 1";
         this.isUploaded2 = true;
       }
 
-      if (bioData.optionalImage2 && bioData.optionalImage2 ==! ''){
-        this.optionalImage2Url = bioData.optionalImage2;
+      if (bioData.optionalImage2){
+        this.optionalImage2Url = this.sanitizeImage(bioData.optionalImage2);
+        document.getElementById('file-chosen3')!.textContent = "Optional Image 2";
         this.isUploaded3 = true;
       }
 
@@ -118,11 +109,6 @@ export class EditBioComponent implements OnInit {
   }
  
   onFileSelectedImage(event: Event) {
-    // const imageElement = document.getElementById("iconImage");
-    // if (imageElement != null){
-    //   // imageElement.setAttribute("src", "../../assets/DeleteImage.png");
-    //   imageElement.setAttribute("ngIf", "true")
-    // }
    
     const target = event.target as HTMLInputElement;
     if (target.files && target.files.length > 0) {
@@ -174,8 +160,13 @@ export class EditBioComponent implements OnInit {
 
   sanitizeImage(base64Image: string): SafeUrl {
     // Use DomSanitizer to sanitize the image URL
-    return this.domSanitizer.bypassSecurityTrustUrl('data:image/jpg;base64,' + base64Image);
-  }
+    return this.domSanitizer.bypassSecurityTrustUrl(`data:image/jpg;base64,${base64Image}`);
+}
+
+
+//=====================================================//
+//             Delete Image Data Functions             //
+//=====================================================//
 
   deleteMainImage(): void {
     this.mainImageUrl = null;
@@ -201,6 +192,11 @@ export class EditBioComponent implements OnInit {
     document.getElementById('file-chosen3')!.textContent = "Browse";
     this.form.get('optionalImage2')?.setValue(null);
   }
+
+
+//=====================================================//
+//               Read and Set Image URLs               //
+//=====================================================//
 
   private readAndSetMainImageUrl(file: File): void{
     const reader = new FileReader();
