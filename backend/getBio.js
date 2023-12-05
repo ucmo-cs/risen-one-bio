@@ -14,7 +14,7 @@ exports.getBio = async (event, context) => {
     };
     let statusCode = 200;
 
-    const token = event.headers['Authorization'];
+    const token = event.headers.authorization;
     console.log(token);
     
     
