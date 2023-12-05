@@ -18,7 +18,7 @@ exports.editBio = async (event, context, callback) => {
     const token = event.headers['Authorization'];
     console.log("EVENT:::", data);
 
-    const mainImagePath = await uploadImageToS3(data.mainImage, 'mainImage', event.pathParameters.id);
+    const mainImagePath = await uploadMainImageToS3(data.mainImage, 'mainImage', event.pathParameters.id);
     const optionalImagePath1 = await uploadImageToS3(data.optionalImage1, 'optionalImage1', event.pathParameters.id);
     const optionalImagePath2 = await uploadImageToS3(data.optionalImage2, 'optionalImage2', event.pathParameters.id);
 
@@ -56,7 +56,10 @@ exports.editBio = async (event, context, callback) => {
         techStack: data.techStack,
         mainImage: mainImagePath,
         optionalImage1: optionalImagePath1,
-        optionalImage2: optionalImagePath2
+        optionalImage2: optionalImagePath2,
+        caption1: data.caption1,
+        caption2: data.caption2,
+        caption3: data.caption3
     };
 
     
@@ -107,8 +110,8 @@ exports.editBio = async (event, context, callback) => {
     }
 };
 
-async function uploadImageToS3(imageData, imageName, userId) {
-    if (!imageData) {
+async function uploadMainImageToS3(imageData, imageName, userId) {
+    if (!imageData || imageData == '') {
         const placeholderImageKey = 'placeholder.png';
         const placeholderParams = {
             Bucket: bucketName,
@@ -131,8 +134,31 @@ async function uploadImageToS3(imageData, imageName, userId) {
         ContentType: contentType,
     };
 
-    const uploadResult = await s3.upload(params).promise();
-    return uploadResult.Location;
+    await s3.upload(params).promise();
+
+    return s3Key;
+}
+
+async function uploadImageToS3(imageData, imageName, userId) {
+    if (!imageData || imageData == '') {
+        
+        return null;
+    }
+
+    const decodedImage = Buffer.from(imageData, 'base64');
+    const contentType = 'image/jpg';
+    const s3Key = `${userId}/${imageName}.jpg`;
+
+    const params = {
+        Bucket: bucketName,
+        Key: s3Key,
+        Body: decodedImage,
+        ContentType: contentType,
+    };
+
+    await s3.upload(params).promise();
+
+    return s3Key;
 }
 
 

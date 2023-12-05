@@ -20,7 +20,6 @@ import { BioComponent } from './bio/bio.component';
 import { TestEmployeeComponent } from './test-employee/test-employee.component';
 import { GetTokenComponent } from './get-token/get-token.component';
 
-
 const routes:Routes = [
   {path:'bio', component:BioComponent},
   {path:'edit-bio', component:EditBioComponent},

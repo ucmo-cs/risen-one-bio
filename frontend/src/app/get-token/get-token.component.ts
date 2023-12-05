@@ -8,8 +8,8 @@ import { Router } from '@angular/router';
 
 @Component({
     selector: 'app-get-token',
-    templateUrl: './edit-bio.component.html',
-    styleUrls: ['./edit-bio.component.css'],
+    templateUrl: './get-token.component.html',
+    styleUrls: ['./get-token.component.css'],
 
   })
 

@@ -71,7 +71,7 @@
                 <div fxLayout="column" fxLayoutGap="20px" class="center-self">
                     <div class="blueBorder" fxLayout="row" fxLayoutAlign="space-between center">
                         <div fxLayout="row" class = "wdth-250">
-                            <img *ngIf="isUploaded1"  class ="uploadIcon" src="../../assets/DeleteImage.png">
+                            <img *ngIf="isUploaded1"  class ="uploadIcon" src="../../assets/DeleteImage.png" (click)="deleteMainImage()">
                             <img *ngIf="!isUploaded1" id = "iconImage" class ="uploadIcon" src="../../assets/UploadImage.png">
                             <p id="file-chosen1" class="pr-10 fileText">Browse</p>
                         </div>
@@ -86,7 +86,8 @@
 
 
                     <div class="uploaded-img">
-                         <img src="assets/placeholder image.png" alt="No Image Loaded">
+                         <img *ngIf="!mainImageUrl" src="assets/placeholder image.png" alt="No Image Loaded">
+                         <img *ngIf="mainImageUrl" [src]="mainImageUrl" alt="Main Image">
                     </div>
                 </div>
 
@@ -94,7 +95,7 @@
                 <div fxLayout="column" fxLayoutGap="20px">
                     <div class="blueBorder" fxLayout="row" fxLayoutAlign="space-between center" >
                         <div fxLayout="row">
-                            <img *ngIf="isUploaded2"  class ="uploadIcon" src="../../assets/DeleteImage.png">
+                            <img *ngIf="isUploaded2"  class ="uploadIcon" src="../../assets/DeleteImage.png" (click)="deleteOpt1Image()">
                             <img *ngIf="!isUploaded2" id = "iconImage" class ="uploadIcon" src="../../assets/UploadImage.png">
                             <p id="file-chosen2" class="pr-10 fileText">Browse</p>
                         </div>
@@ -109,14 +110,15 @@
 
 
                     <div class="uploaded-img">
-                         <img src="assets/placeholder image.png" alt="No Image Loaded">
+                        <img *ngIf="!optionalImage1Url" src="assets/placeholder image.png" alt="No Image Loaded">
+                        <img *ngIf="optionalImage1Url" [src]="optionalImage1Url" alt="Optional Image 1">
                     </div>
                 </div>
 
                 <div fxLayout="column" fxLayoutGap="20px">
                     <div class="blueBorder" fxLayout="row" fxLayoutAlign="space-between center" >
                         <div fxLayout="row">
-                            <img *ngIf="isUploaded3"  class ="uploadIcon" src="../../assets/DeleteImage.png">
+                            <img *ngIf="isUploaded3"  class ="uploadIcon" src="../../assets/DeleteImage.png" (click)="deleteOpt2Image()">
                             <img *ngIf="!isUploaded3" id = "iconImage" class ="uploadIcon" src="../../assets/UploadImage.png">
                             <p id="file-chosen3" class="pr-10 fileText">Browse</p>
                         </div>
@@ -131,7 +133,8 @@
 
 
                     <div class="uploaded-img">
-                         <img src="assets/placeholder image.png" alt="No Image Loaded">
+                        <img *ngIf="!optionalImage2Url" src="assets/placeholder image.png" alt="No Image Loaded">
+                        <img *ngIf="optionalImage2Url" [src]="optionalImage2Url" alt="Optional Image 2">
                     </div>
                 </div>
             </div>
