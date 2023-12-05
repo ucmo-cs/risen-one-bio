@@ -4,13 +4,14 @@ import { OnInit } from '@angular/core';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-
+import { HttpClientModule } from '@angular/common/http';
 import { RouterModule, Routes } from '@angular/router';
 import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list'
 import { MatButtonModule } from '@angular/material/button';
 import { MatMenuModule } from '@angular/material/menu';
-import { MatToolbarModule} from '@angular/material/toolbar'; 
+import { MatToolbarModule} from '@angular/material/toolbar';
+import { MatDialogModule } from '@angular/material/dialog';
 
 import { FlexLayoutModule } from '@angular/flex-Layout';
 import { AppComponent } from './app.component';
@@ -41,9 +42,11 @@ const routes:Routes = [
     BrowserModule,
     FormsModule,
     AppRoutingModule,
+    HttpClientModule,
     MatIconModule,
     MatButtonModule,
     MatMenuModule,
+    MatDialogModule,
     ReactiveFormsModule,
     FlexLayoutModule,
     MatToolbarModule,
