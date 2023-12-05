@@ -18,6 +18,8 @@ import { EditBioComponent } from './edit-bio/edit-bio.component';
 import { BioComponent } from './bio/bio.component';
 import { TestEmployeeComponent } from './test-employee/test-employee.component';
 import { GetTokenComponent } from './get-token/get-token.component';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { AuthInterceptor } from './Interceptor/auth.interceptor';
 
 
 const routes:Routes = [
@@ -49,7 +51,9 @@ const routes:Routes = [
     RouterModule.forRoot(routes),
   ],
   exports:[RouterModule],
-  providers: [],
+  providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true},
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

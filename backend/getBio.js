@@ -13,6 +13,8 @@ exports.getBio = async (event, context) => {
     let statusCode = 200;
 
     const token = event.headers['Authorization'];
+    const decodedToken = readToken(token);
+    const sub = decodedToken.sub;
 
     console.log("EVENT:::", JSON.stringify(event));
 
@@ -34,11 +36,21 @@ exports.getBio = async (event, context) => {
 
         const data = await dynamoDb.get(params).promise();
 
-        const response = {
-            statusCode,
-            headers,
-            body: JSON.stringify(data.Item)
-        };
+        if(sub == id){
+            const response = {
+                statusCode,
+                headers: {
+                    'isAccount': true
+                },
+                body: JSON.stringify(data.Item)
+            };
+        }else{
+            const response = {
+                statusCode,
+                headers,
+                body: JSON.stringify(data.Item)
+            };
+        }
 
         return response;
     } catch (error) {
@@ -51,3 +63,7 @@ exports.getBio = async (event, context) => {
         };
     }
 };
+
+function readToken(token){
+    return JSON.parse(Buffer.from(token.split('.')[1], 'base64').toString());
+}
