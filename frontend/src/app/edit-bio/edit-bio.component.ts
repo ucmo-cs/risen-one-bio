@@ -1,9 +1,6 @@
 import { Component } from '@angular/core';
 import {OnInit} from '@angular/core';
-import {Form, FormControl, FormGroup, Validators} from '@angular/forms'
-import {MatMenuModule} from '@angular/material/menu';
-import {MatButtonModule} from '@angular/material/button';
-
+import {Form, FormControl, FormGroup, Validators} from '@angular/forms';
 @Component({
   selector: 'app-edit-bio',
   templateUrl: './edit-bio.component.html',
