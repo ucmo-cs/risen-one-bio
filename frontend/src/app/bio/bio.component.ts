@@ -33,7 +33,7 @@ export class BioComponent {
 
   ngOnInit() {
 
-    const userId = '160faac0-8289-11ee-9dcc-6507b4955383';
+    const userId = 'f41f2bb2-cf76-47d1-ab5a-58df2bccd572';
 
     this.apiService.getBio(userId).subscribe((bioData) => {
       
@@ -61,7 +61,7 @@ export class BioComponent {
       document.getElementById('fullName')!.textContent = bioData.fullName;
       document.getElementById('jobTitle')!.textContent = bioData.jobTitle;
       document.getElementById('description')!.textContent = bioData.description;
-      
+
       document.getElementById('caption1')!.textContent = bioData.caption1;
       document.getElementById('caption2')!.textContent = bioData.caption2;
       document.getElementById('caption3')!.textContent = bioData.caption3;

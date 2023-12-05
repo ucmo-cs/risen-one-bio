@@ -24,8 +24,13 @@ export class ApiService {
     return this.http.put<any>(this.editBioUrl + '/' + id, requestParams);
   }
 
-  getToken(): Observable<any>{
-    return this.http.get<any>(this.getTokenUrl);
+  getToken(queryParam: string): Observable<any>{
+    const headers = new HttpHeaders({
+      'code': queryParam
+    });
+    console.log(headers);
+
+    return this.http.get<any>(this.getTokenUrl, { headers: headers });
 
   }
 

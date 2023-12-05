@@ -62,9 +62,12 @@ functions:
   getToken:
     handler: getToken.getToken
     events:
-      - httpAPI:
+      - httpApi:
           method: GET
-          path: /getToken/{id}
+          path: /getToken
+          cors:
+            allowedHeaders:
+              - 'code'
 
 resources:
   Resources:

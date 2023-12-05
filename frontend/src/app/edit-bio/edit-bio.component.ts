@@ -247,7 +247,7 @@ export class EditBioComponent implements OnInit {
       fullName: this.form.get('fullName')!.value,
       jobTitle: this.form.get('jobTitle')!.value,
       description: this.form.get('description')!.value,
-      techStack: JSON.stringify(this.techStackList),
+      techStack: this.techStackList,
       mainImage: mainImageBase64,
       optionalImage1: optionalImage1Base64,
       optionalImage2: optionalImage2Base64,

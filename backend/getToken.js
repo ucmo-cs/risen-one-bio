@@ -1,15 +1,15 @@
-const AWS = required('aws-sk');
-const axios = required('axios');
-const Buffer = required("buffer");
+const AWS = require('aws-sdk');
+const axios = require('axios');
+const Buffer = require("buffer");
 
-const COGNITO_CLIENT_ID = 'CognitoClientID';
-const COGNITO_CLIENT_SECRET = 'CognitoClientSecret';
-const COGNITO_USERPOOL_ID = 'CognitoUserpoolID';
-const REDIRECT_URL = 'CognitoDesiredRedirectURL';
+const COGNITO_CLIENT_ID = '4fqh40acgmdksdok6l50qp8l21';
+const COGNITO_CLIENT_SECRET = '1h49tj8fm3q22vg5qi2cqfjfr8sihqsuulef79nvm4c92dlmquko';
+const COGNITO_USERPOOL_ID = 'us-east-1_dAEa5zSQ8';
+const REDIRECT_URL = 'localhost:4200/get-token';
 
 exports.getToken = async (event) => {
-    const code = event.queryStringParameters.code;
-    const tokenEndpoint = 'https://risenonebiosignin.auth.us-east-1.amazoncognito.com/oauth2/token';
+    const code = event.headers['code'];
+    const tokenEndpoint = 'https://riseonebiologin.auth.us-east-1.amazoncognito.com/oauth2/token';
 
     const params = {
         grant_type: 'authorization code',

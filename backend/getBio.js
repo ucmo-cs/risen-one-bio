@@ -15,8 +15,8 @@ exports.getBio = async (event, context) => {
     let statusCode = 200;
 
     const token = event.headers['Authorization'];
-    const decodedToken = readToken(token);
-    const sub = decodedToken.sub;
+    
+    
 
     console.log("EVENT:::", JSON.stringify(event));
 
@@ -52,38 +52,39 @@ exports.getBio = async (event, context) => {
         };
 
         if (data.Item) {
-            console.log("Getting Main Image from S3 bucket:::", bucketName);
             const mainImage = await getImageFromS3(data.Item.mainImage);
-            console.log("Main Image received:::", bucketName);
-
-            console.log("Getting Optional Image 1 from S3 bucket:::", bucketName);
             const optionalImage1 = await getImageFromS3(data.Item.optionalImage1);
-            console.log("Received Optional Image 1:::", bucketName);
-
-            console.log("Getting Optional Image 2 from S3 bucket:::", bucketName);
             const optionalImage2 = await getImageFromS3(data.Item.optionalImage2);
-            console.log("Received Optional Image 2:::", bucketName);
 
             data.Item.mainImage = mainImage;
             data.Item.optionalImage1 = optionalImage1;
             data.Item.optionalImage2 = optionalImage2;
         }
+
+        if (token) {
+            const decodedToken = readToken(token);
+            const sub = decodedToken.sub;
       
-        if(sub == id){
-            const response = {
-                statusCode,
-                headers: {
-                    'isAccount': true
-                },
-                body: JSON.stringify(data.Item)
-            };
-        }else{
-            const response = {
-                statusCode,
-                headers,
-                body: JSON.stringify(data.Item)
-            };
+            if(sub == id){
+                const response = {
+                    statusCode,
+                    headers: {
+                        'Access-Control-Allow-Origin': '*',
+                        'isAccount': true
+                    },
+                    body: JSON.stringify(data.Item)
+                };
+                return response;
+            }
         }
+
+        
+        const response = {
+            statusCode,
+            headers,
+            body: JSON.stringify(data.Item)
+        };
+        
 
 
         return response;
