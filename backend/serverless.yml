@@ -10,7 +10,10 @@ custom:
 provider:
   httpApi:
     name: ${self:service}-${sls:stage}
-    cors: true
+    cors:
+      allowedHeaders:
+        - 'code'
+
   name: aws
   runtime: nodejs16.x
   stage: ${opt:stage, 'dev'}
@@ -65,9 +68,6 @@ functions:
       - httpApi:
           method: GET
           path: /getToken
-          cors:
-            allowedHeaders:
-              - 'code'
 
 resources:
   Resources:
