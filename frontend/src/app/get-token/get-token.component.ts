@@ -27,9 +27,18 @@ import { ActivatedRoute, Router } from '@angular/router';
 
             this.ApiService.getToken(code).subscribe(
                 (data) => {
-                    const token = data.headers.get('Authorization');
-                    localStorage.setItem('BioIdToken', token);
-                    console.log('token', token);
+                    if (data) {
+                        const token = data.id_token;
+                        console.log(data);
+                        if (token) {
+                            localStorage.setItem('BioIdToken', token);
+                            console.log('token', token);
+                        } else {
+                            console.log('Authorization header not found in the response.');
+                        }
+                    } else {
+                        console.log('Invalid response format:', data);
+                    }
                 },
                 (error) => {
                     console.log('Error:', error);
