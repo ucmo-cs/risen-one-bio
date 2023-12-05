@@ -1,4 +1,4 @@
-org: logan368
+org: masonmini
 app: risen-one-project
 service: risen-one-project
 frameworkVersion: '3'
@@ -46,6 +46,7 @@ functions:
     environment:
       BIO_TABLE: ${self:custom.bioTableName}
       BIO_IMAGES: ${self:custom.bioImagesS3Name}
+    role: dynamoRole
   
   editBio:
     handler: editBio.editBio
@@ -106,6 +107,10 @@ resources:
                     - dynamodb:DeleteItem
                   Resource:
                     - Fn::GetAtt: [BioTable, Arn]
+          - PolicyName: s3bucketPolicy
+            PolicyDocument:
+              Version: '2012-10-17'
+              Statement:
                 - Effect: Allow
                   Action:
                     - s3:GetObject

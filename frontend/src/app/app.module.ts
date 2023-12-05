@@ -22,7 +22,6 @@ import { GetTokenComponent } from './get-token/get-token.component';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthInterceptor } from './Interceptor/auth.interceptor';
 
-
 const routes:Routes = [
   {path:'bio', component:BioComponent},
   {path:'edit-bio', component:EditBioComponent},
