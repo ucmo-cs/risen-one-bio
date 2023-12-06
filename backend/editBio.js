@@ -27,11 +27,15 @@ exports.editBio = async (event, context, callback) => {
     console.log("SUB of user edit:", sub);
     console.log("EVENT:::", data);
 
+    var mainImagePath;
+    var optionalImagePath1;
+    var optionalImagePath2;
+
 
     // upload the images to S3 and then store the path in a string
-    const mainImagePath = await uploadImageToS3(data.mainImage, 'mainImage', event.pathParameters.id);
-    const optionalImagePath1 = await uploadImageToS3(data.optionalImage1, 'optionalImage1', event.pathParameters.id);
-    const optionalImagePath2 = await uploadImageToS3(data.optionalImage2, 'optionalImage2', event.pathParameters.id);
+    if (data.mainImage != null && data.mainImage != undefined) {mainImagePath = await uploadImageToS3(data.mainImage, 'mainImage', event.pathParameters.id);} else {mainImagePath = 'placeholder.png'}
+    if (data.optionalImage1 != null && data.optionalImage1 != undefined) {optionalImagePath1 = await uploadImageToS3(data.optionalImage1, 'optionalImage1', event.pathParameters.id);} else {optionalImagePath1 = 'placeholder.png'}
+    if (data.optionalImage2 != null && data.optionalImage2 != undefined) {optionalImagePath2 = await uploadImageToS3(data.optionalImage2, 'optionalImage2', event.pathParameters.id);} else {optionalImagePath2 = 'placeholder.png'}
 
     const getParams = {
         TableName: tableName,
@@ -139,7 +143,7 @@ exports.editBio = async (event, context, callback) => {
 // Funciton to upload the images to S3
 
 async function uploadImageToS3(imageData, imageName, userId) {
-    if (!imageData || imageData == '') {
+    if (imageData == '') {
         const placeholderImageKey = 'placeholder_image.png';
         const placeholderParams = {
             Bucket: bucketName,
