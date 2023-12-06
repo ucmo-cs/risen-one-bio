@@ -19,7 +19,9 @@ exports.editBio = async (event, context, callback) => {
     const data = JSON.parse(event.body);
     console.log("EVENT:::PreToken", data);
     //gets the tokens from the header and extracts the needed info, specifically the SUB
-    const token = event.headers['Authorization'];
+    const token = event.headers.authorization;
+    console.log('Token pre ::: ', token)
+
     const idToken = readToken(token);
     const sub = idToken.sub;
     console.log("SUB of user edit:", sub);
@@ -188,5 +190,6 @@ function addZero(i) {
 }
 
 function readToken(token){  //this function takes the JWT token and decodes the body section
-    return JSON.parse(Buffer.from(token.split('.')[1], 'base64'). toString());
+    console.log('Token ::: ', token)
+    return JSON.parse(Buffer.from(token.split('.')[1], 'base64').toString());
 }

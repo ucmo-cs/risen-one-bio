@@ -306,6 +306,7 @@ export class EditBioComponent implements OnInit {
   }
 
   safeUrlToBase64(safeUrl: SafeUrl | null): string | null {
+    console.log(safeUrl);
     if (!safeUrl) {
       console.log('SafeUrl is null.');
       return null;
@@ -315,6 +316,11 @@ export class EditBioComponent implements OnInit {
     console.log('Original URL:', url);
   
     if (url.startsWith('SafeValue must use [property]=binding: data:image/')) {
+      const base64Index = url.indexOf(';base64,') + ';base64,'.length;
+      const base64 = url.substring(base64Index);
+      console.log('Base64:', base64);
+      return base64;
+    } else if (url.startsWith('data:image/jpeg;base64,/')){
       const base64Index = url.indexOf(';base64,') + ';base64,'.length;
       const base64 = url.substring(base64Index);
       console.log('Base64:', base64);
