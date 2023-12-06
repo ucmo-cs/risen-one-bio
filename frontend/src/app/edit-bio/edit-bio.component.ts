@@ -283,13 +283,21 @@ export class EditBioComponent implements OnInit {
     this.apiService.editBio(formData, this.authUserId).subscribe(
       (response) => {
         console.log('API response:', response);
+        console.log('Bio updated Successfully ::: ', this.userId);
+        if(this.userId){  
+          this.dataService.setUserId(this.userId);
+          this.router.navigate(['/bio']);
+        } else {
+          this.router.navigate(['/home']);
+        }
+
       },
       (error) => {
         console.error('API error:', error);
       }
     );
     
-
+    
   }
 
   safeUrlToBase64(safeUrl: SafeUrl | null): string | null {
