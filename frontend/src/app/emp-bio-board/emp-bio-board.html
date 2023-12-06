@@ -1,0 +1,50 @@
+<div class="content" role="main">
+  <h2 class="title">FIND YOUR NEXT JOB… FAST!</h2>
+  <h3 class="subtitle">Search by job title and location.</h3>
+
+  <div class="search-form">
+    <input
+      type="text"
+      class="custom-input"
+      placeholder="Job Title"
+      [(ngModel)]="jobTitle"
+    />
+
+    <input
+      type="text"
+      class="custom-input"
+      placeholder="City"
+      [(ngModel)]="location"
+    />
+
+    <button (click)="search(jobTitle, location)" class="submit">
+      Search Jobs
+    </button>
+  </div>
+</div>
+
+<div class="content" role="main" *ngIf="noResults">
+  <div class="title">NO JOBS AVAILABLE</div>
+</div>
+
+<div class="content" role="main" *ngIf="resultsShown">
+  <div>
+    <div *ngFor="let job of jobs; let i = index" class="job-item">
+      <div class="title">
+        {{ job.title }}
+      </div>
+      <div class="meta">
+        {{ job.companyName }} | {{ job.location }} | {{ job.createdDate }}
+      </div>
+      <div class="description">{{ job.description.substring(0, 100) }}...</div>
+      <button
+        mat-stroked-button
+        class="detail-btn"
+        color="primary"
+        (click)="openModal(job)"
+      >
+        Details
+      </button>
+    </div>
+  </div>
+</div>

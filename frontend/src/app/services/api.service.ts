@@ -13,6 +13,7 @@ export class ApiService {
   private editBioUrl = this.baseUrl + Constants.EDIT_BIO.BIOS;
   private bioUrl = this.baseUrl + Constants.BIO.BIOS;
   private getTokenUrl = this.baseUrl + Constants.GET_TOKEN.BIOS;
+  private biosUrl = this.baseUrl + Constants.HOMEBIOS.BIOS;
 
   constructor(private http: HttpClient) {}
 
@@ -32,6 +33,10 @@ export class ApiService {
 
     return this.http.get<any>(this.getTokenUrl, { headers: headers });
 
+  }
+
+  getBios() {
+    return this.http.get<any>(this.biosUrl);
   }
 
 }

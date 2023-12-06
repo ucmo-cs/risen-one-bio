@@ -10,4 +10,8 @@ export class Constants {
   public static GET_TOKEN = {
     BIOS: '/getToken',
   };
+
+  public static HOMEBIOS = {
+    BIOS: '/bios',
+  }
 }

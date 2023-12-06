@@ -65,6 +65,8 @@ exports.getBio = async (event, context) => {
         if (token) {
             const decodedToken = readToken(token);
             const sub = decodedToken.sub;
+
+            console.log(':::', sub);
       
             if(sub == id){
                 data.Item.isAccount = true;

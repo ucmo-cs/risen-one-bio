@@ -21,6 +21,7 @@ import { TestEmployeeComponent } from './test-employee/test-employee.component';
 import { GetTokenComponent } from './get-token/get-token.component';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthInterceptor } from './Interceptor/auth.interceptor';
+import { DataService } from './shared/shared.service'
 
 const routes:Routes = [
   {path:'bio', component:BioComponent},
@@ -55,6 +56,7 @@ const routes:Routes = [
   exports:[RouterModule],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true},
+    DataService
   ],
   bootstrap: [AppComponent]
 })

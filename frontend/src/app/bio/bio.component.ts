@@ -26,7 +26,7 @@ export class BioComponent {
   ) {}
 
   techStackList: string[] = [];
-
+  isUser: boolean = false;
   mainImageUrl: SafeUrl | null = null;
   optionalImage1Url: SafeUrl | null = null;
   optionalImage2Url: SafeUrl | null = null;
@@ -36,6 +36,8 @@ export class BioComponent {
     const userId = 'f41f2bb2-cf76-47d1-ab5a-58df2bccd572';
 
     this.apiService.getBio(userId).subscribe((bioData) => {
+
+      console.log(bioData);
       
       for (var i = 0; i < bioData.techStack.length; i++){
 
@@ -58,8 +60,8 @@ export class BioComponent {
         this.optionalImage2Url = this.sanitizeImage(bioData.optionalImage2);
       }
 
-      if(bioData.headers.isAccount || bioData.isAccount){
-        const isUser = true;
+      if(bioData.isAccount){
+        this.isUser = true;
       }
 
       document.getElementById('fullName')!.textContent = bioData.fullName;
