@@ -27,7 +27,9 @@ exports.editBio = async (event, context, callback) => {
     console.log("SUB of user edit:", sub);
     console.log("EVENT:::", data);
 
-    const mainImagePath = await uploadMainImageToS3(data.mainImage, 'mainImage', event.pathParameters.id);
+
+    // upload the images to S3 and then store the path in a string
+    const mainImagePath = await uploadImageToS3(data.mainImage, 'mainImage', event.pathParameters.id);
     const optionalImagePath1 = await uploadImageToS3(data.optionalImage1, 'optionalImage1', event.pathParameters.id);
     const optionalImagePath2 = await uploadImageToS3(data.optionalImage2, 'optionalImage2', event.pathParameters.id);
 
@@ -69,6 +71,8 @@ exports.editBio = async (event, context, callback) => {
     let y = d.getFullYear();
     let dt = y + '/' + MM + '/' + dd;
 
+    // Put together all the data needing to be updated in the dynamodb table
+
     const editData = {
         id: event.pathParameters.id,
         lastEditDate: dt,
@@ -82,7 +86,9 @@ exports.editBio = async (event, context, callback) => {
         caption3: data.caption3
     };
 
-    
+    // These are here in case fullName, jobTitle, or description are left with no input
+    // Should keep old data if no input is given
+
     var fullName = data.fullName;
     var jobTitle = data.jobTitle;
     var description = data.description;
@@ -130,7 +136,9 @@ exports.editBio = async (event, context, callback) => {
     }
 };
 
-async function uploadMainImageToS3(imageData, imageName, userId) {
+// Funciton to upload the images to S3
+
+async function uploadImageToS3(imageData, imageName, userId) {
     if (!imageData || imageData == '') {
         const placeholderImageKey = 'placeholder.png';
         const placeholderParams = {
@@ -140,29 +148,7 @@ async function uploadMainImageToS3(imageData, imageName, userId) {
 
         await s3.headObject(placeholderParams).promise();
 
-        return `https://${bucketName}.s3.amazonaws.com/${placeholderImageKey}`;
-    }
-
-    const decodedImage = Buffer.from(imageData, 'base64');
-    const contentType = 'image/jpg';
-    const s3Key = `${userId}/${imageName}.jpg`;
-
-    const params = {
-        Bucket: bucketName,
-        Key: s3Key,
-        Body: decodedImage,
-        ContentType: contentType,
-    };
-
-    await s3.upload(params).promise();
-
-    return s3Key;
-}
-
-async function uploadImageToS3(imageData, imageName, userId) {
-    if (!imageData || imageData == '') {
-        
-        return null;
+        return placeholderImageKey;
     }
 
     const decodedImage = Buffer.from(imageData, 'base64');
