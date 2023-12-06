@@ -20,8 +20,6 @@ exports.getToken = async (event) => {
         redirect_uri: REDIRECT_URL
     };
 
-    // var encoded = btoa(COGNITO_CLIENT_ID + ':' + COGNITO_CLIENT_SECRET);
-
     //base64encode for the authorization
     const encoded = Buffer.from(COGNITO_CLIENT_ID + ':' + COGNITO_CLIENT_SECRET).toString('base64');
 
