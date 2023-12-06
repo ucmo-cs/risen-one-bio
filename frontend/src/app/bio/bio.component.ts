@@ -47,7 +47,7 @@ export class BioComponent {
       this.signedIn = true;
     }
     
-    this.dataService.currentUserId.subscribe((userId) => (this.userId = userId))
+    this.userId = localStorage.getItem("CurrentId");
     if (this.userId) {
       this.apiService.getBio(this.userId).subscribe((bioData) => {
 

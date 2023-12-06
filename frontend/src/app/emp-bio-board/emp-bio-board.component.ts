@@ -54,9 +54,12 @@ export class EmpBioBoardComponent implements OnInit {
     this.search();
   }
 
+  // Save id of user being viewed to localstorage
+
   openModal(bio: any) {
     console.log('Bio Page opened ::: ', bio);
     this.dataService.setUserId(bio.id);
+    localStorage.setItem("CurrentId", bio.id);
     this.router.navigate(['/bio']);
   }
 }

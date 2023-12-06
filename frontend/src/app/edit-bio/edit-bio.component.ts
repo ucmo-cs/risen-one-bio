@@ -72,7 +72,11 @@ export class EditBioComponent implements OnInit {
       this.signedIn = true;
     }
 
-    this.dataService.currentUserId.subscribe((userId) => (this.userId = userId))
+    ////////////////////////////////////////////
+    //    Get Request to fill Input fields    //
+    ////////////////////////////////////////////
+
+    this.userId = localStorage.getItem("CurrentId");
 
     if (this.userId) {
 
@@ -305,6 +309,10 @@ export class EditBioComponent implements OnInit {
     
   }
 
+  ////////////////////////////////////////////////////////////////
+  //    This is the SafeUrl that converts to a base64 string    //
+  ////////////////////////////////////////////////////////////////
+
   safeUrlToBase64(safeUrl: SafeUrl | null): string | null {
     console.log(safeUrl);
     if (!safeUrl) {
@@ -330,6 +338,8 @@ export class EditBioComponent implements OnInit {
     console.log('URL does not have the expected prefix.');
     return null;
   }
+
+  // Returns the user to the Bio page
 
   cancel(){
     console.log('Bio Page opened ::: ', this.userId);
