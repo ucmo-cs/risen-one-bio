@@ -17,6 +17,9 @@ exports.editBio = async (event, context, callback) => {
     const data = JSON.parse(event.body);
     console.log("EVENT:::PreToken", data);
     const token = event.headers['Authorization'];
+    const idToken = readToken(token);
+    const sub = idToken.sub;
+    console.log("SUB of user edit:", sub);
     console.log("EVENT:::", data);
 
     const mainImagePath = await uploadMainImageToS3(data.mainImage, 'mainImage', event.pathParameters.id);
@@ -28,6 +31,15 @@ exports.editBio = async (event, context, callback) => {
         Key: {
             id: event.pathParameters.id
         },
+    }
+
+    if(!token || sub != event.pathParameters.id){
+        console.log('Attempt to edit bio without proper id detected');
+        callback(null, {
+            statusCode: 401,
+            headers,
+            body: JSON.stringify({message: 'You lack Authorization to update bio'})
+        });
     }
 
     let previousData;
@@ -168,4 +180,8 @@ function addZero(i) {
         i = '0' + i;
     }
     return i;
+}
+
+function readToken(token){
+    return JSON.parse(Buffer.from(token.split('.')[1], 'base64'). toString());
 }
