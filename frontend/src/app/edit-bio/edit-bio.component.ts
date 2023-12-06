@@ -333,6 +333,11 @@ export class EditBioComponent implements OnInit {
       const base64 = url.substring(base64Index);
       console.log('Base64:', base64);
       return base64;
+    } else if (url.startsWith('data:image/png;base64,')){
+      const base64Index = url.indexOf(';base64,') + ';base64,'.length;
+      const base64 = url.substring(base64Index);
+      console.log('Base64:', base64);
+      return base64;
     }
   
     console.log('URL does not have the expected prefix.');
