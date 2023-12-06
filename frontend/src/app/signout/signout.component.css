@@ -11,16 +11,6 @@
     background-color: white;
 }
 
-.mb-20{
-    margin-bottom: 20px;
-}
-
-img{
-    width: 100%;
-    height: 100%;
-    object-fit: contain;
-}
-
 .navbar {
     background-color: black;
     padding: 30px 50px;
@@ -51,16 +41,4 @@ img{
   .risenOneLogo {
     width: 150px;
     margin: -45px;
-    }
-
-    .edit-bio-button {
-      border-color: #deaa52;
-      background-color:#deaa52;
-      color: white;
-      text-align: center;
-      padding: 8px 30px;
-      border-radius: 30px;
-      border-style: solid;
-      font-weight: 700;
-      font-size: 16px;
     }

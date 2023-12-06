@@ -1,49 +1,68 @@
+
+<head>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+</head>
+
 <div class="navbar" fxLayout="row" fxLayoutAlign="space-around center">
-  <a class="link" href="/bio">Home</a>
+  <img class = "risenOneLogo" src="../../assets/Risen-One_white.png" alt="">
+    
+ 
   <h3 style = "color: white">Risen One Employee Portal</h3>
-  <a class="link" href="/edit-bio">edit bio</a>
+  <button class="material-symbols-outlined" mat-button [matMenuTriggerFor]="menu" style = "color: white">Menu</button>
+  <mat-menu  #menu="matMenu">
+    <a href="/home" mat-menu-item style="color: black">Home</a>
+    <a *ngIf="signedIn" href="https://riseonebiologin.auth.us-east-1.amazoncognito.com/logout?client_id=4fqh40acgmdksdok6l50qp8l21&logout_uri=http://localhost:4200/signout" style="color: black" mat-menu-item>Logout</a>
+
+  </mat-menu>
 </div>
   <div class = "background-theme">
   
     <div class="container">
       <div fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="20px" class="text-center- mb-20">
-        <h1 class = "h1"> John Doe</h1>
-        <h4 class = "h4"> UX Design and Front End Development Support</h4>
-        <button *ngIf="false" class="btn btn-warning" onclick="location.href='../edit-bio'">Edit My Bio</button> 
+        <h1 class = "h1 mont-bold" id="fullName"> Full Name</h1>
+        <h4 class = "h4 mont-reg" id="jobTitle"> Job Title</h4>
+        <!-- replace the value in true with the typescript value, if its true it will show, if its false it wont show -->
+        <button *ngIf="isUser" class="btn btn-warning edit-bio-button mont-reg" (click)="sendEditBio()">Edit My Bio</button> 
       </div>
   
-      <div fxLayout="row" fxLayout.xs="column" fxLayout.sm="row" fxLayoutAlign.xs="center center" fxLayoutGap="100px" class="mb-20">
+      <div fxLayout="row" fxLayout.sm="row" fxLayoutGap="100px" class="mb-20">
         <div fxLayout="column" fxLayoutAlign="none center" fxFlex = "20">
-          <img src="assets/placeholder image.png" alt="No Image Loaded">
-          <p> Caption about the featured image</p>
+          <img *ngIf="mainImageUrl" [src]="mainImageUrl" alt="mainImage">
+          <img *ngIf="!mainImageUrl" src="assets/placeholder image.png" alt="No Image Loaded">
+          <p class = "mont-reg" id="caption1"> Caption about the featured image</p>
         </div>
   
-        <div fxFlex="80">
-          <p>
+
+        <div fxFlex="80" div fxLayout = "row">
+          <p class = "mont-reg" id="description">
+
             this is text that will be pulled from the database
           </p>
         </div>
       </div>
   
-      <div fxLayout="row" fxLayout.xs="column"  fxLayoutAlign.xs="center center" fxLayoutGap="100px" class="mb-20">
+      <div fxLayout="row" fxLayout.xs="column"  fxLayoutGap="100px" class="mb-20">
         <div fxLayout="column" fxLayoutGap="10px" fxFlex="20" fxLayoutAlign.xs="center center">
-          <h4> Tech Stack and Software</h4>
-          <h6>Figma</h6>
-          <h6>Angular/Typescript</h6>
-          <h6>HTML</h6>
-          <h6>CSS</h6>
-          <h6>Github</h6>
-          <h6>ZenHub</h6>
+          <h4 class = "mont-reg"> Tech Stack and Software</h4>
+          <div class = "printStack hght-20 mb-20" *ngFor="let tech of techStackList; let i = index" >
+            <h6 class = "mont-reg">{{ tech }}</h6>
+        </div> 
         </div>
   
         <div fxLayout="row" fxLayout.xs="column" fxLayout.sm="row" fxFlex="80" fxLayoutAlign="space-around" fxLayoutGap = "35px" >
           <div fxLayout="column" fxLayoutAlign="none center">
-            <img src="assets/placeholder image.png" alt="No Image Loaded">
-            <p> Caption about the featured image</p>
+            <img *ngIf="optionalImage1Url" [src]="optionalImage1Url" alt="optImage">
+            <img *ngIf="!optionalImage1Url" src="assets/placeholder image.png" alt="No Image Loaded">
+            <p class = "mont-reg" id="caption2"> Caption about the featured image</p>
           </div>
           <div fxLayout="column" fxLayoutAlign="none center">
-            <img src="assets/placeholder image.png" alt="No Image Loaded">
-            <p> Caption about the featured image</p>
+            <img *ngIf="optionalImage2Url" [src]="optionalImage2Url" alt="optImage">
+            <img *ngIf="!optionalImage2Url" src="assets/placeholder image.png" alt="No Image Loaded">
+            <p class = "mont-reg" id="caption3"> Caption about the featured image</p>
           </div>
   
         </div>

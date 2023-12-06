@@ -2,7 +2,6 @@
     background-color: #fad033;
     padding: 60px;
     height: 100%;
-    margin: -10px;
 }
 
 .container{
@@ -26,7 +25,6 @@ img{
     padding: 30px 50px;
     align-items: center;
     font-family: sans-serif;
-    margin: -10px;
   }
    
   .link:first-of-type {
@@ -48,19 +46,3 @@ img{
     font-weight: 700;
     font-size: 22px;
   }
-  .risenOneLogo {
-    width: 150px;
-    margin: -45px;
-    }
-
-    .edit-bio-button {
-      border-color: #deaa52;
-      background-color:#deaa52;
-      color: white;
-      text-align: center;
-      padding: 8px 30px;
-      border-radius: 30px;
-      border-style: solid;
-      font-weight: 700;
-      font-size: 16px;
-    }

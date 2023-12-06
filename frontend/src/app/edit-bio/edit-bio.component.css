@@ -1,10 +1,14 @@
+
 .risenOneLogo {
-width: 100px;
+width: 150px;
+margin: -45px;
+
 }
 .background-theme {
   background-color: #fad033;
   padding: 60px;
   height: 100%;
+  margin: -10px;
 }
 
 .container {
@@ -45,7 +49,7 @@ width: 100px;
   padding-right: 10px;
 }
 
-img {
+.uploadIcon {
   width: 80%;
   object-fit: contain;
 }
@@ -55,6 +59,7 @@ img {
   padding: 30px 50px;
   align-items: center;
   font-family: sans-serif;
+  margin: -10px;
 }
 .wdth-250{
   width: 250px;
@@ -141,6 +146,7 @@ label {
   text-align: center;
   padding: 8px 30px;
   border-radius: 30px;
+  border-style: solid;
 }
 .cancel-button:hover {
   background-color: #fad033;
@@ -153,6 +159,7 @@ label {
   color: white;
   padding: 8px 30px;
   border-radius: 30px;
+  border-style: solid;
 }
 .save-button:hover {
   background-color: #facf33a0;
@@ -190,7 +197,7 @@ label {
 }
 
 .uploaded-img {
-  max-width: 10vw;
+  max-width: 30vw;
 }
 
 .center-self {
@@ -204,4 +211,7 @@ label {
 }
 .tech-input{
   width: 50px;
+}
+.uploadedImage{
+  width: 50%;
 }

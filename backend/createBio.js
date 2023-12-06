@@ -14,6 +14,10 @@ exports.createBio = async (event, context, callback) => {
 
     const data = JSON.parse(event.body);
     console.log("EVENT:::", data);
+    const defaultPath = "/placeholder_image.png"
+    const token = event.headers['Authorization'];
+    const decodedToken = readToken(token);
+    const sub = decodedToken.sub;
 
     //create new timestamp value
     let d = new Date();
@@ -29,11 +33,12 @@ exports.createBio = async (event, context, callback) => {
     const params = {
         TableName: process.env.BIO_TABLE,
         Item: {
-            id: uuid.v1(),
-            firstName: data.firstName,
-            lastName: data.lastName,
+            //id: uuid.v1(),
+            id: sub,
+            fullName: data.fullName,
             jobTitle: data.jobTitle,
             description: data.description,
+            mainImage: defaultPath,
             createdDate: dt,
             createdTimestamp: ts
         }
@@ -68,4 +73,8 @@ function addZero(i) {
         i = '0' + i;
     }
     return i;
+}
+
+function readToken(token){
+    return JSON.parse(Buffer.from(token.split('.')[1], 'base64'). toString());
 }

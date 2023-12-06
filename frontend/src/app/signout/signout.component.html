@@ -1,0 +1,29 @@
+<head>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+</head>
+
+<div class="navbar" fxLayout="row" fxLayoutAlign="space-around center">
+    <img class = "risenOneLogo" src="../../assets/Risen-One_white.png" alt="">
+      
+   
+    <h3 style = "color: white">Risen One Employee Portal</h3>
+    <button class="material-symbols-outlined" mat-button [matMenuTriggerFor]="menu" style = "color: white">Menu</button>
+    <mat-menu  #menu="matMenu">
+      <a href="/bio" mat-menu-item>Bio</a>
+      <a href="/edit-bio"mat-menu-item>Edit Bio</a>
+    </mat-menu>
+  </div>
+
+  <div class="background-theme">
+
+    <div class="container">
+        <div fxLayout="column" fxLayoutAlign = "center center" fxFlexAlign="stretch">
+            <h4 class = "h4 mont-reg" id="jobTitle">You are now signed out.</h4>
+        </div>
+    </div>
+
+  </div>
