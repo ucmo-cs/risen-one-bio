@@ -1,0 +1,29 @@
+<div class="content" role="main">
+  <h2 class="title">FIND YOUR NEXT JOB… FAST!</h2>
+  <h3 class="subtitle">Search by job title and location.</h3>
+</div>
+
+<div class="content" role="main" *ngIf="noResults">
+  <div class="title">NO JOBS AVAILABLE</div>
+</div>
+
+<div class="content" role="main" *ngIf="resultsShown">
+  <div>
+    <div *ngFor="let bio of bios; let i = index" class="job-item">
+      <div class="title">
+        {{ bio.title }}
+      </div>
+      <div class="meta">
+        {{ bio.body }}
+      </div>
+      <button
+        mat-stroked-button
+        class="detail-btn"
+        color="primary"
+        (click)="openModal(bio)"
+      >
+        Details
+      </button>
+    </div>
+  </div>
+</div>

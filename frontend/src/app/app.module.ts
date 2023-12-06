@@ -22,8 +22,11 @@ import { GetTokenComponent } from './get-token/get-token.component';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthInterceptor } from './Interceptor/auth.interceptor';
 import { DataService } from './shared/shared.service'
+import { EmpBioBoardComponent } from './emp-bio-board/emp-bio-board.component';
+import { EmpBioModelComponent } from './emp-bio-board/emp-bio-model/emp-bio-model.component';
 
 const routes:Routes = [
+  {path:'home', component:EmpBioBoardComponent},
   {path:'bio', component:BioComponent},
   {path:'edit-bio', component:EditBioComponent},
   {path: 'get-token', component:GetTokenComponent}
@@ -35,6 +38,8 @@ const routes:Routes = [
     AppComponent,
     EditBioComponent,
     BioComponent,
+    EmpBioBoardComponent,
+    EmpBioModelComponent,
     GetTokenComponent,
     TestEmployeeComponent
   ],

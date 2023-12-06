@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { JobDetailModalComponent } from './emp-bio-model.component';
+import { EmpBioModelComponent } from './emp-bio-model.component';
 
-describe('JobDetailModalComponent', () => {
-  let component: JobDetailModalComponent;
-  let fixture: ComponentFixture<JobDetailModalComponent>;
+describe('EmpBioModelComponent', () => {
+  let component: EmpBioModelComponent;
+  let fixture: ComponentFixture<EmpBioModelComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ JobDetailModalComponent ]
+      declarations: [ EmpBioModelComponent ]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(JobDetailModalComponent);
+    fixture = TestBed.createComponent(EmpBioModelComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

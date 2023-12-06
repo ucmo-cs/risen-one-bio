@@ -44,8 +44,10 @@ exports.getBios = async (event, context) => {
             },
             body: JSON.stringify(data.Items)
         };
+        console.log('Response returned :::: ', data.Items);
+        
         return response;
-
+        
     } catch (error) {
         console.error('Error:', error);
 
