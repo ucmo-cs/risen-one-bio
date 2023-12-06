@@ -1,20 +1,31 @@
-<div class="content" role="main">
-  <h2 class="title">FIND YOUR NEXT JOB… FAST!</h2>
-  <h3 class="subtitle">Search by job title and location.</h3>
-</div>
+<head>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+</head>
 
-<div class="content" role="main" *ngIf="noResults">
-  <div class="title">NO JOBS AVAILABLE</div>
+<div class="navbar" fxLayout="row" fxLayoutAlign="space-around center">
+  <img class = "risenOneLogo" src="../../assets/Risen-One_white.png" alt="">
+    
+ 
+  <h3 style = "color: white">Risen One Employee Portal</h3>
+  <button class="material-symbols-outlined" mat-button [matMenuTriggerFor]="menu" style = "color: white">Menu</button>
+  <mat-menu  #menu="matMenu">
+    <a href="/home" mat-menu-item>Home</a>
+  </mat-menu>
 </div>
-
+<div class = "background-theme">
+<div  class="container">
 <div class="content" role="main" *ngIf="resultsShown">
   <div>
     <div *ngFor="let bio of bios; let i = index" class="job-item">
       <div class="title">
-        {{ bio.title }}
+        {{ bio.fullName }}
       </div>
       <div class="meta">
-        {{ bio.body }}
+        {{ bio.jobTitle }}
       </div>
       <button
         mat-stroked-button
@@ -27,3 +38,6 @@
     </div>
   </div>
 </div>
+</div>
+</div>
+

@@ -5,9 +5,11 @@ import {Form, FormControl, FormGroup, Validators} from '@angular/forms'
 import { MatDialog } from '@angular/material/dialog';
 import {MatMenuModule} from '@angular/material/menu';
 import {MatButtonModule} from '@angular/material/button';
-import { ApiService } from 'src/app/services/api.service';
+import { ApiService } from '../services/api.service';
 import { NgZone, ChangeDetectorRef } from '@angular/core';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
+import { DataService } from '../shared/shared.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-edit-bio',
@@ -27,10 +29,13 @@ export class EditBioComponent implements OnInit {
     private cdr: ChangeDetectorRef,
     private http: HttpClient,
     private apiService: ApiService,
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    private dataService: DataService,
+    private router: Router,
   ) {}
 
   authUserId: string = '';
+  userId: string | null = null;
 
   techStackList: string[] = [];
   isUploaded1: boolean = false;
@@ -47,6 +52,7 @@ export class EditBioComponent implements OnInit {
   optionalImage2File: File | null = null;
 
   ngOnInit() {
+    
     this.form = new FormGroup({
       fullName: new FormControl('', Validators.required),
       jobTitle: new FormControl('', Validators.required),
@@ -60,51 +66,60 @@ export class EditBioComponent implements OnInit {
       caption3: new FormControl('', Validators.required)
     });
 
-    const userId = '160faac0-8289-11ee-9dcc-6507b4955383';
-    this.authUserId = userId;
+    this.dataService.currentUserId.subscribe((userId) => (this.userId = userId))
 
-    this.apiService.getBio(userId).subscribe((bioData) => {
+    if (this.userId) {
+
+      this.authUserId = this.userId;
+
+      this.apiService.getBio(this.authUserId).subscribe((bioData) => {
       
-      for (var i = 0; i < bioData.techStack.length; i++){
+        for (var i = 0; i < bioData.techStack.length; i++){
 
-        console.log('techStackList [', i ,']::: ', bioData.techStack[i]);
-        this.form.patchValue({ tech: bioData.techStack[i] });
-        this.addListItem();
-      }
+          console.log('techStackList [', i ,']::: ', bioData.techStack[i]);
+          this.form.patchValue({ tech: bioData.techStack[i] });
+          this.addListItem();
+        }
 
-      console.log('techStackList should be updated');
+        console.log('techStackList should be updated');
 
-      this.form.patchValue({
-        fullName: bioData.fullName,
-        jobTitle: bioData.jobTitle,
-        description: bioData.description,
-        caption1: bioData.caption1,
-        caption2: bioData.caption2,
-        caption3: bioData.caption3
+        this.form.patchValue({
+          fullName: bioData.fullName,
+          jobTitle: bioData.jobTitle,
+          description: bioData.description,
+          caption1: bioData.caption1,
+          caption2: bioData.caption2,
+          caption3: bioData.caption3
+        });
+
+        if (bioData.mainImage){
+          this.mainImageUrl = this.sanitizeImage(bioData.mainImage);
+          document.getElementById('file-chosen1')!.textContent = "Main Image";
+          this.isUploaded1 = true;
+        }
+
+        if (bioData.optionalImage1){
+          this.optionalImage1Url = this.sanitizeImage(bioData.optionalImage1);
+          document.getElementById('file-chosen2')!.textContent = "Optional Image 1";
+          this.isUploaded2 = true;
+        }
+
+        if (bioData.optionalImage2){
+          this.optionalImage2Url = this.sanitizeImage(bioData.optionalImage2);
+          document.getElementById('file-chosen3')!.textContent = "Optional Image 2";
+          this.isUploaded3 = true;
+        }
+
+      },
+      (error) => {
+        console.error('Error fetching bio data:', error);
       });
 
-      if (bioData.mainImage){
-        this.mainImageUrl = this.sanitizeImage(bioData.mainImage);
-        document.getElementById('file-chosen1')!.textContent = "Main Image";
-        this.isUploaded1 = true;
-      }
 
-      if (bioData.optionalImage1){
-        this.optionalImage1Url = this.sanitizeImage(bioData.optionalImage1);
-        document.getElementById('file-chosen2')!.textContent = "Optional Image 1";
-        this.isUploaded2 = true;
-      }
 
-      if (bioData.optionalImage2){
-        this.optionalImage2Url = this.sanitizeImage(bioData.optionalImage2);
-        document.getElementById('file-chosen3')!.textContent = "Optional Image 2";
-        this.isUploaded3 = true;
-      }
-
-    },
-    (error) => {
-      console.error('Error fetching bio data:', error);
-    });
+    } else {
+      console.log('Failed to retrieve userId from dataService');
+    }
 
     
 
@@ -237,8 +252,6 @@ export class EditBioComponent implements OnInit {
 
   save() {
 
-    console.log(this.mainImageUrl);
-
     const mainImageBase64 = this.safeUrlToBase64(this.mainImageUrl);
     const optionalImage1Base64 = this.safeUrlToBase64(this.optionalImage1Url);
     const optionalImage2Base64 = this.safeUrlToBase64(this.optionalImage2Url);
@@ -260,6 +273,7 @@ export class EditBioComponent implements OnInit {
      console.log(formData.optionalImage1);
      console.log(formData.optionalImage2);
     console.log(formData);
+    console.log(this.authUserId);
 
     this.apiService.editBio(formData, this.authUserId).subscribe(
       (response) => {
@@ -269,6 +283,7 @@ export class EditBioComponent implements OnInit {
         console.error('API error:', error);
       }
     );
+    
 
   }
 
@@ -290,6 +305,16 @@ export class EditBioComponent implements OnInit {
   
     console.log('URL does not have the expected prefix.');
     return null;
+  }
+
+  cancel(){
+    console.log('Bio Page opened ::: ', this.userId);
+    if(this.userId){  
+      this.dataService.setUserId(this.userId);
+      this.router.navigate(['/bio']);
+    } else {
+      this.router.navigate(['/home']);
+    }
   }
 
 

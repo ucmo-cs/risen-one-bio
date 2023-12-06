@@ -4,7 +4,7 @@ export class Constants {
   };
 
   public static EDIT_BIO = {
-    BIOS: '/editbio',
+    BIOS: '/editBio',
   };
 
   public static GET_TOKEN = {

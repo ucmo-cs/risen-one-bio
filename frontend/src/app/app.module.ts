@@ -25,6 +25,8 @@ import { DataService } from './shared/shared.service'
 import { EmpBioBoardComponent } from './emp-bio-board/emp-bio-board.component';
 import { EmpBioModelComponent } from './emp-bio-board/emp-bio-model/emp-bio-model.component';
 import { SignoutComponent } from './signout/signout.component';
+import { LoggingInterceptor } from './Interceptor/logging.interceptor';
+
 
 const routes:Routes = [
   {path:'home', component:EmpBioBoardComponent},
@@ -41,12 +43,12 @@ const routes:Routes = [
     EditBioComponent,
     BioComponent,
     EmpBioBoardComponent,
-    EmpBioModelComponent,
     GetTokenComponent,
     TestEmployeeComponent,
     SignoutComponent
   ],
   imports: [
+    MatListModule,
     BrowserModule,
     FormsModule,
     AppRoutingModule,
@@ -64,6 +66,7 @@ const routes:Routes = [
   exports:[RouterModule],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true},
+    { provide: HTTP_INTERCEPTORS, useClass: LoggingInterceptor, multi: true },
     DataService
   ],
   bootstrap: [AppComponent]

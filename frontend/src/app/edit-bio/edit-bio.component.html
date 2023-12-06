@@ -17,8 +17,7 @@
     
     <button class="material-symbols-outlined" mat-button [matMenuTriggerFor]="menu" style = "color: white">Menu</button>
     <mat-menu #menu="matMenu">
-      <a href="/bio" mat-menu-item>Bio</a>
-      <a href="/edit-bio"mat-menu-item>Edit Bio</a>
+        <a href="/home" mat-menu-item>Home</a>
     </mat-menu>
 </div>
 
@@ -152,7 +151,7 @@
             
             
             <div fxLayout = "row" fxLayoutAlign = "end" fxLayoutGap = "30px">
-                <a href="/bio"><button class = "cancel-button"> cancel</button></a>
+                <button class = "cancel-button" (click)="cancel()"> cancel</button>
                 <button class = "save-button" (click)="save()"> save</button>
             </div>
 

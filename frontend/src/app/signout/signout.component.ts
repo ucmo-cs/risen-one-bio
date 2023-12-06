@@ -10,7 +10,7 @@ import { NgZone, ChangeDetectorRef } from '@angular/core';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 
 @Component({
-    selector: 'signout',
+    selector: 'app-signout',
     templateUrl: './signout.component.html',
     styleUrls: ['./signout.component.css']
   })

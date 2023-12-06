@@ -2,7 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { ApiService } from '../services/api.service';
 import { MatDialog } from '@angular/material/dialog';
-import { EmpBioModelComponent } from './emp-bio-model/emp-bio-model.component';
+import { DataService } from '../shared/shared.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-emp-bio-board',
@@ -22,7 +23,9 @@ export class EmpBioBoardComponent implements OnInit {
   constructor(
     private http: HttpClient,
     private api: ApiService,
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    private dataService: DataService,
+    private router: Router,
   ) {}
 
   search() {
@@ -46,13 +49,8 @@ export class EmpBioBoardComponent implements OnInit {
   }
 
   openModal(bio: any) {
-    console.log('MODEL OPENED ', bio);
-    const dialogRef = this.dialog.open(EmpBioModelComponent, {
-      width: '80vw',
-      data: {
-        title: bio.fullName,
-        body: bio.jobTitle,
-      },
-    });
+    console.log('Bio Page opened ::: ', bio);
+    this.dataService.setUserId(bio.id);
+    this.router.navigate(['/bio']);
   }
 }

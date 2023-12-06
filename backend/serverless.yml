@@ -14,6 +14,7 @@ provider:
       allowedHeaders:
         - 'code'
         - 'Authorization'
+        - 'Content-Type'
 
   name: aws
   runtime: nodejs16.x
@@ -68,7 +69,7 @@ functions:
     events:
       - httpApi:
           method: PUT
-          path: /editbio/{id}
+          path: /editBio/{id}
     environment:
       BIO_TABLE: ${self:custom.bioTableName}
       BIO_IMAGES: ${self:custom.bioImagesS3Name}

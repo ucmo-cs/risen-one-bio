@@ -8,6 +8,8 @@ import {MatButtonModule} from '@angular/material/button';
 import { ApiService } from 'src/app/services/api.service';
 import { NgZone, ChangeDetectorRef } from '@angular/core';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
+import { DataService } from '../shared/shared.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-bio',
@@ -22,7 +24,9 @@ export class BioComponent {
     private cdr: ChangeDetectorRef,
     private http: HttpClient,
     private apiService: ApiService,
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    private dataService: DataService,
+    private router: Router
   ) {}
 
   techStackList: string[] = [];
@@ -30,57 +34,65 @@ export class BioComponent {
   mainImageUrl: SafeUrl | null = null;
   optionalImage1Url: SafeUrl | null = null;
   optionalImage2Url: SafeUrl | null = null;
+
   signedIn: boolean = false;
+
+  userId: string | null = null;
+
 
   ngOnInit() {
 
-    const userId = 'f41f2bb2-cf76-47d1-ab5a-58df2bccd572';
+    if(localStorage.getItem('BioIdToken')){
+      this.signedIn = true;
+    }
+    
+    this.dataService.currentUserId.subscribe((userId) => (this.userId = userId))
+    if (this.userId) {
+      this.apiService.getBio(this.userId).subscribe((bioData) => {
 
-    this.apiService.getBio(userId).subscribe((bioData) => {
-
-      console.log(bioData);
+        console.log(bioData);
       
-      for (var i = 0; i < bioData.techStack.length; i++){
+        for (var i = 0; i < bioData.techStack.length; i++){
 
-        console.log('techStackList [', i ,']::: ', bioData.techStack[i]);
-        const tech: string = bioData.techStack[i];
-        this.addListItem(tech);
-      }
+          console.log('techStackList [', i ,']::: ', bioData.techStack[i]);
+          const tech: string = bioData.techStack[i];
+          this.addListItem(tech);
+        }
 
-      console.log('techStackList should be updated');
+        console.log('techStackList should be updated');
 
-      if (bioData.mainImage){
-        this.mainImageUrl = this.sanitizeImage(bioData.mainImage);
-      }
+        if (bioData.mainImage){
+          this.mainImageUrl = this.sanitizeImage(bioData.mainImage);
+        }
 
-      if (bioData.optionalImage1){
-        this.optionalImage1Url = this.sanitizeImage(bioData.optionalImage1);
-      }
+        if (bioData.optionalImage1){
+          this.optionalImage1Url = this.sanitizeImage(bioData.optionalImage1);
+        }
 
-      if (bioData.optionalImage2){
-        this.optionalImage2Url = this.sanitizeImage(bioData.optionalImage2);
-      }
+        if (bioData.optionalImage2){
+          this.optionalImage2Url = this.sanitizeImage(bioData.optionalImage2);
+        }
 
-      if(bioData.isAccount){
-        this.isUser = true;
-      }
+        if(bioData.isAccount){
+          this.isUser = true;
+        }
 
-      if(localStorage.getItem('BioIdToken')){
-        this.signedIn = true;
-      }
+        document.getElementById('fullName')!.textContent = bioData.fullName;
+        document.getElementById('jobTitle')!.textContent = bioData.jobTitle;
+        document.getElementById('description')!.textContent = bioData.description;
 
-      document.getElementById('fullName')!.textContent = bioData.fullName;
-      document.getElementById('jobTitle')!.textContent = bioData.jobTitle;
-      document.getElementById('description')!.textContent = bioData.description;
+        document.getElementById('caption1')!.textContent = bioData.caption1;
+        document.getElementById('caption2')!.textContent = bioData.caption2;
+        document.getElementById('caption3')!.textContent = bioData.caption3;
 
-      document.getElementById('caption1')!.textContent = bioData.caption1;
-      document.getElementById('caption2')!.textContent = bioData.caption2;
-      document.getElementById('caption3')!.textContent = bioData.caption3;
+      },
+      (error) => {
+        console.error('Error fetching bio data:', error);
+      });
 
-    },
-    (error) => {
-      console.error('Error fetching bio data:', error);
-    });
+    } else {
+      console.log("Failed to get userId from dataService");
+    }
 
     
 
@@ -94,6 +106,16 @@ export class BioComponent {
 
   addListItem(tech: string) {
     this.techStackList.push(tech);
+  }
+
+  sendEditBio(){
+    console.log('Bio Page opened ::: ', this.userId);
+    if(this.userId){  
+      this.dataService.setUserId(this.userId);
+      this.router.navigate(['/edit-bio']);
+    } else {
+      this.router.navigate(['/home']);
+    }
   }
 
 }
