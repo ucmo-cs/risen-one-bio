@@ -13,8 +13,8 @@
   <h3 style = "color: white">Risen One Employee Portal</h3>
   <button class="material-symbols-outlined" mat-button [matMenuTriggerFor]="menu" style = "color: white">Menu</button>
   <mat-menu  #menu="matMenu">
-    <a href="/home" mat-menu-item>Home</a>
-    <a *ngIf="signedIn" href="https://riseonebiologin.auth.us-east-1.amazoncognito.com/logout?client_id=4fqh40acgmdksdok6l50qp8l21&logout_uri=http://localhost:4200/signout"mat-menu-itme>Logout</a>
+    <a href="/home" mat-menu-item style="color: black">Home</a>
+    <a *ngIf="signedIn" href="https://riseonebiologin.auth.us-east-1.amazoncognito.com/logout?client_id=4fqh40acgmdksdok6l50qp8l21&logout_uri=http://localhost:4200/signout" style="color: black" mat-menu-item>Logout</a>
 
   </mat-menu>
 </div>

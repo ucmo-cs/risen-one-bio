@@ -36,6 +36,7 @@ export class EditBioComponent implements OnInit {
 
   authUserId: string = '';
   userId: string | null = null;
+  signedIn: boolean = false;
 
   techStackList: string[] = [];
   isUploaded1: boolean = false;
@@ -65,6 +66,10 @@ export class EditBioComponent implements OnInit {
       optionalImage2: new FormControl('', Validators.required),
       caption3: new FormControl('', Validators.required)
     });
+
+    if(localStorage.getItem('BioIdToken')){
+      this.signedIn = true;
+    }
 
     this.dataService.currentUserId.subscribe((userId) => (this.userId = userId))
 

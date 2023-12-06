@@ -36,13 +36,18 @@
 
 .content {
   display: flex;
-  padding: 50px 150px;
+  padding: 50px 100px;
   max-width: 1200px;
   margin: auto;
   flex-direction: column;
   align-items: center;
   flex: 1;
   position: relative;
+
+  .flex-bios {
+    display: flex;
+    flex-wrap: wrap;
+  }
 
   .backBtn {
     position: absolute;
@@ -55,11 +60,12 @@
   }
 
   .job-item {
-    margin: 10px 0;
+    margin: 10px;
     border: 1px solid gray;
     border-radius: 8px;
     padding: 16px;
     position: relative;
+    width: 300px;
 
     .title {
       font-size: 20px;
@@ -248,9 +254,21 @@ footer {
 }
 
 .detail-btn {
+  border-color: black;
+  background-color: #fad033;
+  text-align: center;
+  color: white;
+  padding: 8px 30px;
+  border-radius: 30px;
+  border-style: solid;
   position: absolute;
   top: 20%;
   right: 10px;
+}
+
+.detail-btn:hover {
+  background-color: #facf33a0;
+  color: white;
 }
 
 
