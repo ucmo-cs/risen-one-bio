@@ -103,6 +103,6 @@ exports.getBio = async (event, context) => {
     }
 };
 
-function readToken(token){
+function readToken(token){  //this function takes the JWT token and decodes the body section
     return JSON.parse(Buffer.from(token.split('.')[1], 'base64').toString());
 }

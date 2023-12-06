@@ -67,6 +67,7 @@ export class EditBioComponent implements OnInit {
       caption3: new FormControl('', Validators.required)
     });
 
+    //check if user is signed in
     if(localStorage.getItem('BioIdToken')){
       this.signedIn = true;
     }

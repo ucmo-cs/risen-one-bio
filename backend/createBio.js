@@ -15,9 +15,10 @@ exports.createBio = async (event, context, callback) => {
     const data = JSON.parse(event.body);
     console.log("EVENT:::", data);
     const defaultPath = "/placeholder_image.png"
-    const token = event.headers['Authorization'];
-    const decodedToken = readToken(token);
-    const sub = decodedToken.sub;
+    //Currently unnecessary, but here in case of planned automation
+    // const token = event.headers['Authorization'];
+    // const decodedToken = readToken(token);
+    // const sub = decodedToken.sub;
 
     //create new timestamp value
     let d = new Date();
@@ -75,6 +76,7 @@ function addZero(i) {
     return i;
 }
 
-function readToken(token){
-    return JSON.parse(Buffer.from(token.split('.')[1], 'base64'). toString());
-}
+//currently uneccessary but here in case of planned automation
+// function readToken(token){
+//     return JSON.parse(Buffer.from(token.split('.')[1], 'base64'). toString());
+// }

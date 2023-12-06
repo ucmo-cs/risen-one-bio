@@ -26,6 +26,7 @@ export class ApiService {
   }
 
   getToken(queryParam: string): Observable<any>{
+    //here to send the code as a header. Could be sent as querystring but this was simpler
     const headers = new HttpHeaders({
       'code': queryParam
     });

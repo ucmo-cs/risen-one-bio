@@ -18,6 +18,7 @@ exports.editBio = async (event, context, callback) => {
 
     const data = JSON.parse(event.body);
     console.log("EVENT:::PreToken", data);
+    //gets the tokens from the header and extracts the needed info, specifically the SUB
     const token = event.headers['Authorization'];
     const idToken = readToken(token);
     const sub = idToken.sub;
@@ -35,6 +36,8 @@ exports.editBio = async (event, context, callback) => {
         },
     }
 
+    //extra security. If the users SUB does not matcht he ID of the bio they are attempting to edit, 
+    //then the connection is immidiately closed with a 401 unauthorized access
     if(!token || sub != event.pathParameters.id){
         console.log('Attempt to edit bio without proper id detected');
         callback(null, {
@@ -184,6 +187,6 @@ function addZero(i) {
     return i;
 }
 
-function readToken(token){
+function readToken(token){  //this function takes the JWT token and decodes the body section
     return JSON.parse(Buffer.from(token.split('.')[1], 'base64'). toString());
 }

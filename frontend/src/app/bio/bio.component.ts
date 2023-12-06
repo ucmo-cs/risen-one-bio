@@ -42,6 +42,7 @@ export class BioComponent {
 
   ngOnInit() {
 
+    //check if user is logged in
     if(localStorage.getItem('BioIdToken')){
       this.signedIn = true;
     }
@@ -73,6 +74,7 @@ export class BioComponent {
           this.optionalImage2Url = this.sanitizeImage(bioData.optionalImage2);
         }
 
+        //check if user is the owner of this biopage
         if(bioData.isAccount){
           this.isUser = true;
         }
