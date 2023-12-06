@@ -16,6 +16,7 @@ export class EmpBioBoardComponent implements OnInit {
   fullName = '';
 
   bios: any[] = [];
+  signedIn: boolean = false;
 
   resultsShown = false;
   noResults = false;
@@ -45,6 +46,11 @@ export class EmpBioBoardComponent implements OnInit {
   }
 
   ngOnInit() {
+
+    if(localStorage.getItem('BioIdToken')){
+      this.signedIn = true;
+    }
+
     this.search();
   }
 
