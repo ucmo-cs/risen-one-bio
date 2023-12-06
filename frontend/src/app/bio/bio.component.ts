@@ -52,12 +52,15 @@ export class BioComponent {
       this.apiService.getBio(this.userId).subscribe((bioData) => {
 
         console.log(bioData);
-      
-        for (var i = 0; i < bioData.techStack.length; i++){
+        if (bioData.techStack){
 
-          console.log('techStackList [', i ,']::: ', bioData.techStack[i]);
-          const tech: string = bioData.techStack[i];
-          this.addListItem(tech);
+          for (var i = 0; i < bioData.techStack.length; i++){
+
+            console.log('techStackList [', i ,']::: ', bioData.techStack[i]);
+            const tech: string = bioData.techStack[i];
+            this.addListItem(tech);
+          }
+
         }
 
         console.log('techStackList should be updated');

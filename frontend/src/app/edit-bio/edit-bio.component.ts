@@ -80,11 +80,15 @@ export class EditBioComponent implements OnInit {
 
       this.apiService.getBio(this.authUserId).subscribe((bioData) => {
       
-        for (var i = 0; i < bioData.techStack.length; i++){
+        if (bioData.techStack) {
 
-          console.log('techStackList [', i ,']::: ', bioData.techStack[i]);
-          this.form.patchValue({ tech: bioData.techStack[i] });
-          this.addListItem();
+          for (var i = 0; i < bioData.techStack.length; i++){
+
+            console.log('techStackList [', i ,']::: ', bioData.techStack[i]);
+            this.form.patchValue({ tech: bioData.techStack[i] });
+            this.addListItem();
+          }
+
         }
 
         console.log('techStackList should be updated');
@@ -236,7 +240,7 @@ export class EditBioComponent implements OnInit {
     const reader = new FileReader();
 
     reader.onload = () => {
-      this.mainImageUrl = reader.result as string;
+      this.optionalImage1Url = reader.result as string;
     };
 
     reader.readAsDataURL(file);
@@ -246,7 +250,7 @@ export class EditBioComponent implements OnInit {
     const reader = new FileReader();
 
     reader.onload = () => {
-      this.mainImageUrl = reader.result as string;
+      this.optionalImage2Url = reader.result as string;
     };
 
     reader.readAsDataURL(file);

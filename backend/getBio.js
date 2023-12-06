@@ -42,11 +42,15 @@ exports.getBio = async (event, context) => {
         console.log("Items received from table:::", bioTable);
 
         const getImageFromS3 = async (path) => {
+            if (path === "placeholder_image.png") {
+                console.log("Placeholder Image does not allow for requesting");
+                return "";
+            }
             const s3Params = {
                 Bucket: bucketName,
                 Key: path,
             };
-
+            console.log("Getting Item from S3 ::: ", path);
             const s3Data = await s3.getObject(s3Params).promise();
             const base64Image = s3Data.Body.toString('base64');
             return base64Image;
