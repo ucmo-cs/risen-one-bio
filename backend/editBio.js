@@ -140,7 +140,7 @@ exports.editBio = async (event, context, callback) => {
 
 async function uploadImageToS3(imageData, imageName, userId) {
     if (!imageData || imageData == '') {
-        const placeholderImageKey = 'placeholder.png';
+        const placeholderImageKey = 'placeholder_image.png';
         const placeholderParams = {
             Bucket: bucketName,
             Key: placeholderImageKey,

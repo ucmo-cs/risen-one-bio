@@ -20,7 +20,7 @@ exports.createBio = async (event, context, callback) => {
     // const decodedToken = readToken(token);
     // const sub = decodedToken.sub;
 
-    const defaultPath = "placeholder_image.png"
+    const defaultPath = "placeholder.png"
 
 
     //create new timestamp value

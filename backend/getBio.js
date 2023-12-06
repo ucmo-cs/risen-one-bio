@@ -42,7 +42,7 @@ exports.getBio = async (event, context) => {
         console.log("Items received from table:::", bioTable);
 
         const getImageFromS3 = async (path) => {
-            if (path === "placeholder_image.png") {
+            if (path === "placeholder.png") {
                 console.log("Placeholder Image does not allow for requesting");
                 return "";
             }
