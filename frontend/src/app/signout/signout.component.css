@@ -1,0 +1,44 @@
+.background-theme{
+    background-color: #fad033;
+    padding: 60px;
+    height: 100%;
+    margin: -10px;
+}
+
+.container{
+    border-radius: 40px;
+    padding: 0 40px 0 40px;
+    background-color: white;
+}
+
+.navbar {
+    background-color: black;
+    padding: 30px 50px;
+    align-items: center;
+    font-family: sans-serif;
+    margin: -10px;
+  }
+   
+  .link:first-of-type {
+    margin-right: 32px;
+  }
+   
+  .link {
+    color: white;
+    text-decoration: none;
+    font-size: 14pt;
+    font-weight: bold;
+  }
+  .mont-reg {
+    font-family: "Montserrat";
+  }
+  
+  .mont-bold {
+    font-family: "Montserrat";
+    font-weight: 700;
+    font-size: 22px;
+  }
+  .risenOneLogo {
+    width: 150px;
+    margin: -45px;
+    }

@@ -30,6 +30,7 @@ export class BioComponent {
   mainImageUrl: SafeUrl | null = null;
   optionalImage1Url: SafeUrl | null = null;
   optionalImage2Url: SafeUrl | null = null;
+  signedIn: boolean = false;
 
   ngOnInit() {
 
@@ -62,6 +63,10 @@ export class BioComponent {
 
       if(bioData.isAccount){
         this.isUser = true;
+      }
+
+      if(localStorage.getItem('BioIdToken')){
+        this.signedIn = true;
       }
 
       document.getElementById('fullName')!.textContent = bioData.fullName;

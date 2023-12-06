@@ -24,12 +24,14 @@ import { AuthInterceptor } from './Interceptor/auth.interceptor';
 import { DataService } from './shared/shared.service'
 import { EmpBioBoardComponent } from './emp-bio-board/emp-bio-board.component';
 import { EmpBioModelComponent } from './emp-bio-board/emp-bio-model/emp-bio-model.component';
+import { SignoutComponent } from './signout/signout.component';
 
 const routes:Routes = [
   {path:'home', component:EmpBioBoardComponent},
   {path:'bio', component:BioComponent},
   {path:'edit-bio', component:EditBioComponent},
-  {path: 'get-token', component:GetTokenComponent}
+  {path: 'get-token', component:GetTokenComponent},
+  {path: 'signout', component:SignoutComponent}
   
 ];
 
@@ -41,7 +43,8 @@ const routes:Routes = [
     EmpBioBoardComponent,
     EmpBioModelComponent,
     GetTokenComponent,
-    TestEmployeeComponent
+    TestEmployeeComponent,
+    SignoutComponent
   ],
   imports: [
     BrowserModule,
