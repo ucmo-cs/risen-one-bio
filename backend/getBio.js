@@ -4,16 +4,19 @@ const AWS = require('aws-sdk');
 const dynamoDb = new AWS.DynamoDB.DocumentClient();
 const s3 = new AWS.S3();
 
+//set environment variables
 const bioTable = process.env.BIO_TABLE;
 const bucketName = process.env.BIO_IMAGES;
 
 exports.getBio = async (event, context) => {
+    //cross-origin request header
     let headers = {
         'Access-Control-Allow-Origin': '*',
         'Access-Control-Allow-Credentials': true
     };
     let statusCode = 200;
 
+    //get auth token
     const token = event.headers.authorization;
     console.log(token);
     
@@ -21,6 +24,7 @@ exports.getBio = async (event, context) => {
 
     console.log("EVENT:::", JSON.stringify(event));
 
+    //get id and retrieve data from DynamoDB
     try {
         const id = event.pathParameters.id;
 
@@ -41,6 +45,7 @@ exports.getBio = async (event, context) => {
 
         console.log("Items received from table:::", bioTable);
 
+        //get images from S3 and convert them
         const getImageFromS3 = async (path) => {
             if (path === "placeholder.png" || path === null || path === '' || path === undefined) {
                 console.log("Placeholder Image does not allow for requesting");
